@@ -35,12 +35,6 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
             fit: StackFit.expand,
             children: [
               // LAYER 1: The Fixed Background. This is the correct place for it.
-              Image.asset(
-                "assets/images/icon-background.png",
-                fit: BoxFit.cover,
-              ),
-
-              // LAYER 2: The Scrollable Content. This sits on top of the background.
               SingleChildScrollView(
                 child: ConstrainedBox(
                   // This forces the content to be AT LEAST as tall as the screen.
@@ -71,6 +65,13 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
                               ),
                             ),
                             // The logo sits on top of the gradient.
+                            Positioned.fill(
+                              child: Image.asset(
+                                "assets/images/icon-background.png",
+                                fit: BoxFit.none,
+                                height: constraints.maxHeight * 0.01,
+                              ),
+                            ),
                             Positioned(
                               top: 103.95,
                               child: SvgPicture.asset(
