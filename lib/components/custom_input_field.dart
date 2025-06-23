@@ -31,6 +31,7 @@ class CustomInputField extends StatelessWidget {
             color: const Color(0xBF481F94),
             fontSize: 18,
             fontWeight: FontWeight.w400,
+            height: 1.0,
           ),
         ),
         const SizedBox(height: 8),

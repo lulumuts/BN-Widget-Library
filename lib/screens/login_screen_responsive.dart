@@ -201,7 +201,7 @@ class LoginScreenResponsive extends StatelessWidget {
                   // Right side content
                   Positioned(
                     right: formWidth * 0.1,
-                    top: innerConstraints.maxHeight * 0.08,
+                    top: innerConstraints.maxHeight * 0.09,
                     width: formWidth * 0.8,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,16 +223,14 @@ class LoginScreenResponsive extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: innerConstraints.maxHeight * 0.05),
+                        SizedBox(height: constraints.maxWidth > 600 ? 70 : 65),
                         CustomInputField(
                           label: 'Email Address',
                           hintText: 'Enter your email',
                           controller: TextEditingController(),
                           keyboardType: TextInputType.emailAddress,
                         ),
-                        SizedBox(
-                            height: innerConstraints.maxHeight *
-                                (constraints.maxWidth < 1300 ? 0.05 : 0.03)),
+                        const SizedBox(height: 10),
                         CustomInputField(
                           label: 'Password',
                           hintText: 'Enter your password',
@@ -269,7 +267,7 @@ class LoginScreenResponsive extends StatelessWidget {
                               iconSize: 30.0,
                               fontSize: socialTextSize,
                             )),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 30),
                             Center(
                               child: GestureDetector(
                                 onTap: () {},

@@ -22,7 +22,7 @@ class SocialLoginSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 10),
+        const SizedBox(height: 50),
         // "Or Log In with" text
         Text(
           'Or \nLog In with',
@@ -34,7 +34,7 @@ class SocialLoginSection extends StatelessWidget {
             height: 1.6,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 20),
 
         // Social media icons
         Row(

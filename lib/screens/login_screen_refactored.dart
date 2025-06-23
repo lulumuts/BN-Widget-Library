@@ -121,7 +121,7 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
                                     hintText: 'Enter your email',
                                     controller: _emailController,
                                     keyboardType: TextInputType.emailAddress),
-                                const SizedBox(height: 20),
+                                const SizedBox(height: 10),
                                 CustomInputField(
                                     label: 'Password',
                                     hintText: 'Enter your password',
