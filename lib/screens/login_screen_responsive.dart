@@ -160,7 +160,7 @@ class LoginScreenResponsive extends StatelessWidget {
                         // Background image
                         Positioned.fill(
                           child: Image.asset(
-                            "assets/images/login_bg.png",
+                            "images/login_bg.png",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -172,7 +172,7 @@ class LoginScreenResponsive extends StatelessWidget {
                             width: imageWidth * 0.15,
                             height: imageWidth * 0.15,
                             child: SvgPicture.asset(
-                              "assets/images/logo.svg",
+                              "images/logo.svg",
                               fit: BoxFit.contain,
                             ),
                           ),
