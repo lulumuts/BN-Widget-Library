@@ -5,6 +5,7 @@ import '../components/custom_input_field.dart';
 import '../components/button.dart';
 import '../components/social_login_section.dart';
 import '../components/gradient_background.dart';
+import 'login_screen_refactored.dart';
 
 class LoginScreenResponsive extends StatelessWidget {
   const LoginScreenResponsive({super.key});
@@ -26,9 +27,9 @@ class LoginScreenResponsive extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Use mobile layout for screens narrower than 768px
-          if (constraints.maxWidth < 768) {
-            return _buildMobileLayout(context, constraints);
+          // Use LoginScreenRefactored for screens narrower than 600px
+          if (constraints.maxWidth < 600) {
+            return const LoginScreenRefactored();
           }
           return _buildDesktopLayout(context, constraints);
         },
@@ -36,168 +37,10 @@ class LoginScreenResponsive extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileLayout(BuildContext context, BoxConstraints constraints) {
-    return Stack(
-      children: [
-        // Background image centered horizontally
-        Positioned(
-          left: 0,
-          right: 0,
-          top: 0,
-          height: constraints.maxHeight * 0.3,
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/login_bg.png"),
-                fit: BoxFit.cover,
-                alignment: Alignment.center,
-              ),
-            ),
-          ),
-        ),
-        // Logo
-        Positioned(
-          left: 20,
-          top: 20,
-          child: Container(
-            width: 60,
-            height: 60,
-            child: SvgPicture.asset(
-              "assets/images/logo.svg",
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        // Login form
-        SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: constraints.maxHeight * 0.25),
-                Text(
-                  'Hello!',
-                  style: GoogleFonts.leagueSpartan(
-                    color: const Color(0xFF7F38FF),
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1.60,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Please Sign in below',
-                  style: GoogleFonts.leagueSpartan(
-                    color: const Color(0xFF7F38FF),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 30),
-                CustomInputField(
-                  label: 'Email Address',
-                  hintText: 'Enter your email',
-                  controller: TextEditingController(),
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                const SizedBox(height: 20),
-                CustomInputField(
-                  label: 'Password',
-                  hintText: 'Enter your password',
-                  isPassword: true,
-                  controller: TextEditingController(),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: CustomButton(
-                    text: 'Login',
-                    onPressed: () {},
-                    isPrimary: true,
-                  ),
-                ),
-                const SizedBox(height: 15),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'Forgot my password',
-                    style: GoogleFonts.leagueSpartan(
-                      color: const Color(0xFF332749),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        'Or\nLog In with',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.leagueSpartan(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          height: 2.1,
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildSocialIcon("https://placehold.co/36x35", 500),
-                          const SizedBox(width: 20),
-                          _buildSocialIcon("https://placehold.co/36x31", 500),
-                          const SizedBox(width: 20),
-                          _buildSocialIcon("https://placehold.co/35x29", 500),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "Don't have an account? ",
-                            style: GoogleFonts.leagueSpartan(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          TextSpan(
-                            text: 'Sign Up',
-                            style: GoogleFonts.leagueSpartan(
-                              color: const Color(0xFF3A0F88),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildDesktopLayout(BuildContext context, BoxConstraints constraints) {
     // Define the card dimensions while maintaining aspect ratio
-    final cardWidth = 1187.0;
-    final cardHeight = 806.79;
+    final cardWidth = 1287.0;
+    final cardHeight = 856.79;
     final aspectRatio = cardWidth / cardHeight;
 
     // Calculate the actual dimensions based on available space
@@ -205,23 +48,27 @@ class LoginScreenResponsive extends StatelessWidget {
     double actualHeight = cardHeight;
 
     // If the screen is smaller than the desired width, scale down proportionally
-    if (constraints.maxWidth < cardWidth + 120) {
-      // 120px for padding
-      actualWidth = constraints.maxWidth - 120;
+    if (constraints.maxWidth < cardWidth + 40) {
+      // Reduced padding from 120 to 40
+      actualWidth = constraints.maxWidth - 40;
       actualHeight = actualWidth / aspectRatio;
     }
 
     // If the screen is smaller than the desired height, scale down proportionally
-    if (constraints.maxHeight < actualHeight + 120) {
-      actualHeight = constraints.maxHeight - 120;
+    if (constraints.maxHeight < actualHeight + 40) {
+      // Reduced padding from 120 to 40
+      actualHeight = constraints.maxHeight - 40;
       actualWidth = actualHeight * aspectRatio;
     }
+
+    // Scale factor for responsive sizing
+    final scaleFactor = actualWidth / cardWidth;
 
     return Center(
       child: Container(
         width: actualWidth,
         height: actualHeight,
-        padding: const EdgeInsets.all(60.0),
+        padding: EdgeInsets.all(60.0 * scaleFactor), // Scale padding
         child: LayoutBuilder(
           builder: (context, innerConstraints) {
             // Calculate responsive widths
@@ -229,10 +76,13 @@ class LoginScreenResponsive extends StatelessWidget {
             double imageWidth = containerWidth * 0.4;
             double formWidth = containerWidth * 0.6;
 
-            // If screen is large enough, use original proportions
+            // Adjust proportions for different screen sizes
             if (containerWidth > 1000) {
               imageWidth = containerWidth * 0.5;
               formWidth = containerWidth * 0.5;
+            } else if (containerWidth < 600) {
+              imageWidth = containerWidth * 0.35;
+              formWidth = containerWidth * 0.65;
             }
 
             return Container(
@@ -241,18 +91,19 @@ class LoginScreenResponsive extends StatelessWidget {
               decoration: ShapeDecoration(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    width: 1,
+                  side: BorderSide(
+                    width: 1 * scaleFactor, // Scale border width
                     color: Color(0x0C7F38FF),
                   ),
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(
+                      24 * scaleFactor), // Scale border radius
                 ),
-                shadows: const [
+                shadows: [
                   BoxShadow(
                     color: Color(0x417F38FF),
-                    blurRadius: 25,
-                    offset: Offset(0, 4),
-                    spreadRadius: 13,
+                    blurRadius: 25 * scaleFactor, // Scale blur radius
+                    offset: Offset(0, 4 * scaleFactor), // Scale offset
+                    spreadRadius: 13 * scaleFactor, // Scale spread radius
                   )
                 ],
               ),
@@ -266,7 +117,8 @@ class LoginScreenResponsive extends StatelessWidget {
                     decoration: ShapeDecoration(
                       color: const Color(0xBFE9DDFF),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(24),
+                        borderRadius: BorderRadius.circular(
+                            24 * scaleFactor), // Scale border radius
                       ),
                     ),
                     child: Stack(
@@ -301,12 +153,12 @@ class LoginScreenResponsive extends StatelessWidget {
                     child: Container(
                       width: formWidth,
                       height: innerConstraints.maxHeight,
-                      decoration: const ShapeDecoration(
+                      decoration: ShapeDecoration(
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(24),
-                            bottomRight: Radius.circular(24),
+                            topRight: Radius.circular(24 * scaleFactor),
+                            bottomRight: Radius.circular(24 * scaleFactor),
                           ),
                         ),
                       ),
@@ -324,17 +176,22 @@ class LoginScreenResponsive extends StatelessWidget {
                           'Hello!',
                           style: GoogleFonts.leagueSpartan(
                             color: const Color(0xFF7F38FF),
-                            fontSize: formWidth * 0.06,
+                            fontSize: formWidth *
+                                0.06 *
+                                scaleFactor, // Scale font size
                             fontWeight: FontWeight.w700,
-                            letterSpacing: 1.60,
+                            letterSpacing:
+                                1.60 * scaleFactor, // Scale letter spacing
                           ),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2 * scaleFactor), // Scale spacing
                         Text(
                           'Please Sign in below',
                           style: GoogleFonts.leagueSpartan(
                             color: const Color(0xFF7F38FF),
-                            fontSize: formWidth * 0.04,
+                            fontSize: formWidth *
+                                0.04 *
+                                scaleFactor, // Scale font size
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -368,7 +225,9 @@ class LoginScreenResponsive extends StatelessWidget {
                             'Forgot my password',
                             style: GoogleFonts.leagueSpartan(
                               color: const Color(0xFF332749),
-                              fontSize: formWidth * 0.03,
+                              fontSize: formWidth *
+                                  0.03 *
+                                  scaleFactor, // Scale font size
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -382,30 +241,43 @@ class LoginScreenResponsive extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.leagueSpartan(
                                   color: Colors.black,
-                                  fontSize: formWidth * 0.03,
+                                  fontSize: formWidth *
+                                      0.03 *
+                                      scaleFactor, // Scale font size
                                   fontWeight: FontWeight.w600,
-                                  height: 2.1,
+                                  height:
+                                      2.1 * scaleFactor, // Scale line height
                                 ),
                               ),
                               SizedBox(
-                                  height: innerConstraints.maxHeight * 0.02),
+                                  height: innerConstraints.maxHeight *
+                                      0.02 *
+                                      scaleFactor), // Scale spacing
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   _buildSocialIcon(
-                                      "https://placehold.co/36x35", formWidth),
-                                  SizedBox(width: formWidth * 0.04),
+                                      "assets/images/google-icon-logo.svg",
+                                      formWidth * scaleFactor),
+                                  SizedBox(
+                                      width: formWidth * 0.04 * scaleFactor),
                                   _buildSocialIcon(
-                                      "https://placehold.co/36x31", formWidth),
-                                  SizedBox(width: formWidth * 0.04),
+                                      "assets/images/Facebook_icon.png",
+                                      formWidth * scaleFactor),
+                                  SizedBox(
+                                      width: formWidth * 0.04 * scaleFactor),
                                   _buildSocialIcon(
-                                      "https://placehold.co/35x29", formWidth),
+                                      "assets/images/apple-logo.svg",
+                                      formWidth * scaleFactor),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: innerConstraints.maxHeight * 0.02),
+                        SizedBox(
+                            height: innerConstraints.maxHeight *
+                                0.02 *
+                                scaleFactor), // Scale spacing
                         Center(
                           child: GestureDetector(
                             onTap: () {},
@@ -416,7 +288,9 @@ class LoginScreenResponsive extends StatelessWidget {
                                     text: "Don't have an account? ",
                                     style: GoogleFonts.leagueSpartan(
                                       color: Colors.black,
-                                      fontSize: formWidth * 0.03,
+                                      fontSize: formWidth *
+                                          0.03 *
+                                          scaleFactor, // Scale font size
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -424,7 +298,9 @@ class LoginScreenResponsive extends StatelessWidget {
                                     text: 'Sign Up',
                                     style: GoogleFonts.leagueSpartan(
                                       color: const Color(0xFF3A0F88),
-                                      fontSize: formWidth * 0.03,
+                                      fontSize: formWidth *
+                                          0.03 *
+                                          scaleFactor, // Scale font size
                                       fontWeight: FontWeight.w600,
                                       decoration: TextDecoration.underline,
                                     ),
@@ -447,15 +323,28 @@ class LoginScreenResponsive extends StatelessWidget {
   }
 
   Widget _buildSocialIcon(String imageUrl, double cardWidth) {
-    return Container(
-      width: cardWidth * 0.03,
-      height: cardWidth * 0.03,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.cover,
+    final iconSize = cardWidth * 0.03;
+
+    if (imageUrl.endsWith('.svg')) {
+      return Container(
+        width: iconSize,
+        height: iconSize,
+        child: SvgPicture.asset(
+          imageUrl,
+          fit: BoxFit.contain,
         ),
-      ),
-    );
+      );
+    } else {
+      return Container(
+        width: iconSize,
+        height: iconSize,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(imageUrl),
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
   }
 }
