@@ -6,31 +6,35 @@ class SocialLoginSection extends StatelessWidget {
   final VoidCallback? onGoogleTap;
   final VoidCallback? onFacebookTap;
   final VoidCallback? onAppleTap;
+  final double iconSize;
+  final double? fontSize;
 
   const SocialLoginSection({
     super.key,
     this.onGoogleTap,
     this.onFacebookTap,
     this.onAppleTap,
+    this.iconSize = 30.0,
+    this.fontSize,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 16),
+        const SizedBox(height: 10),
         // "Or Log In with" text
         Text(
           'Or \nLog In with',
           textAlign: TextAlign.center,
           style: GoogleFonts.leagueSpartan(
             color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            height: 1.8,
+            fontSize: fontSize ?? 18,
+            fontWeight: FontWeight.w500,
+            height: 1.6,
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 8),
 
         // Social media icons
         Row(
@@ -40,12 +44,12 @@ class SocialLoginSection extends StatelessWidget {
               imageUrl: "assets/images/google-icon-logo.svg",
               onTap: onGoogleTap,
             ),
-            const SizedBox(width: 22),
+            const SizedBox(width: 20),
             _buildSocialIcon(
               imageUrl: "assets/images/Facebook_icon.png",
               onTap: onFacebookTap,
             ),
-            const SizedBox(width: 22),
+            const SizedBox(width: 20),
             _buildSocialIcon(
               imageUrl: "assets/images/apple-logo.svg",
               onTap: onAppleTap,
@@ -62,9 +66,9 @@ class SocialLoginSection extends StatelessWidget {
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: 36,
-        height: 35,
+      child: SizedBox(
+        width: iconSize,
+        height: iconSize,
         child: imageUrl.endsWith('.svg')
             ? SvgPicture.asset(
                 imageUrl,

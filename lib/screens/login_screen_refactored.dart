@@ -49,16 +49,16 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
                     children: [
                       // This SizedBox acts as a spacer for the area above the white card.
                       SizedBox(
-                        height: 280,
+                        height: 208,
                         width: double.infinity,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
                             // The purple radial gradient sits inside the spacer.
                             Positioned(
-                              top: 50,
+                              top: 30,
                               child: GradientBackground(
-                                center: Alignment(0.096, 2.5),
+                                center: Alignment(0.006, 2.1),
                                 child: Container(
                                   width: constraints.maxWidth,
                                   height: 250,
@@ -101,78 +101,82 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
                               top: BorderSide(
                                   width: 1, color: Color(0xFFDECCFF))),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Hello!',
-                                style: GoogleFonts.leagueSpartan(
-                                    color: const Color(0xFF332749),
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w700)),
-                            const SizedBox(height: 8),
-                            Text('Please Sign in below',
-                                style: GoogleFonts.leagueSpartan(
-                                    color: const Color(0xFF332749),
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500)),
-                            const SizedBox(height: 30),
-                            CustomInputField(
-                                label: 'Email Address',
-                                hintText: 'Enter your email',
-                                controller: _emailController,
-                                keyboardType: TextInputType.emailAddress),
-                            const SizedBox(height: 20),
-                            CustomInputField(
-                                label: 'Password',
-                                hintText: 'Enter your password',
-                                isPassword: true,
-                                controller: _passwordController),
-                            const SizedBox(height: 30),
-                            SizedBox(
-                                width: double.infinity,
-                                child: CustomButton(
-                                    text: 'Login',
-                                    onPressed: _handleLogin,
-                                    isPrimary: true)),
-                            const SizedBox(height: 20),
-                            GestureDetector(
-                                onTap: _handleForgotPassword,
-                                child: Text('Forgot my password',
+                        child: Center(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 500),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Hello!',
                                     style: GoogleFonts.leagueSpartan(
                                         color: const Color(0xFF332749),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500))),
-                            SocialLoginSection(
-                                onGoogleTap: _handleGoogleLogin,
-                                onFacebookTap: _handleFacebookLogin,
-                                onAppleTap: _handleAppleLogin),
-                            const SizedBox(height: 20),
-                            GestureDetector(
-                              onTap: _handleSignUp,
-                              child: Center(
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                          text: "Don't have an account? ",
-                                          style: GoogleFonts.leagueSpartan(
-                                              color: const Color(0xFF332749),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600)),
-                                      TextSpan(
-                                          text: 'Sign Up',
-                                          style: GoogleFonts.leagueSpartan(
-                                              color: const Color(0xFF332749),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600,
-                                              decoration:
-                                                  TextDecoration.underline)),
-                                    ],
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w700)),
+                                // const SizedBox(height: 8),
+                                Text('Please Sign in below',
+                                    style: GoogleFonts.leagueSpartan(
+                                        color: const Color(0xFF332749),
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500)),
+                                const SizedBox(height: 30),
+                                CustomInputField(
+                                    label: 'Email Address',
+                                    hintText: 'Enter your email',
+                                    controller: _emailController,
+                                    keyboardType: TextInputType.emailAddress),
+                                const SizedBox(height: 20),
+                                CustomInputField(
+                                    label: 'Password',
+                                    hintText: 'Enter your password',
+                                    isPassword: true,
+                                    controller: _passwordController),
+                                const SizedBox(height: 30),
+                                SizedBox(
+                                    width: double.infinity,
+                                    child: CustomButton(
+                                        text: 'Login',
+                                        onPressed: _handleLogin,
+                                        isPrimary: true)),
+                                const SizedBox(height: 16),
+                                GestureDetector(
+                                    onTap: _handleForgotPassword,
+                                    child: Text('Forgot my password',
+                                        style: GoogleFonts.leagueSpartan(
+                                            color: const Color(0xFF332749),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500))),
+                                const SocialLoginSection(iconSize: 28),
+                                const SizedBox(height: 16),
+                                GestureDetector(
+                                  onTap: _handleSignUp,
+                                  child: Center(
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                              text: "Don't have an account? ",
+                                              style: GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF332749),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600)),
+                                          TextSpan(
+                                              text: 'Sign Up',
+                                              style: GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF332749),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w600,
+                                                  decoration: TextDecoration
+                                                      .underline)),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                     ],
