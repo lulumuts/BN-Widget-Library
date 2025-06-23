@@ -41,17 +41,17 @@ class SocialLoginSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _buildSocialIcon(
-              imageUrl: "images/google-icon-logo.svg",
+              imageUrl: "assets/images/google-icon-logo.svg",
               onTap: onGoogleTap,
             ),
             const SizedBox(width: 20),
             _buildSocialIcon(
-              imageUrl: "images/Facebook_icon.png",
+              imageUrl: "assets/images/Facebook_icon.png",
               onTap: onFacebookTap,
             ),
             const SizedBox(width: 20),
             _buildSocialIcon(
-              imageUrl: "images/apple-logo.svg",
+              imageUrl: "assets/images/apple-logo.svg",
               onTap: onAppleTap,
             ),
           ],

@@ -36,7 +36,7 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
             children: [
               // LAYER 1: The Fixed Background. This is the correct place for it.
               Image.asset(
-                "images/icon-background.png",
+                "assets/images/icon-background.png",
                 fit: BoxFit.cover,
               ),
 
@@ -74,7 +74,7 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
                             Positioned(
                               top: 103.95,
                               child: SvgPicture.asset(
-                                "images/logo.svg",
+                                "assets/images/logo.svg",
                                 width: 59.80,
                                 height: 65.17,
                               ),
