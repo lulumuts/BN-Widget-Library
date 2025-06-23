@@ -20,7 +20,7 @@ class GradientBackground extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: RadialGradient(
           center: center ?? const Alignment(0.50, 0.50),
-          radius: radius ?? 0.50,
+          radius: radius ?? 1.25,
           colors: colors ??
               const [
                 Color(0xFF7F38FF),
