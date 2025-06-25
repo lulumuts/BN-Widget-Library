@@ -7,6 +7,8 @@ import 'components/social_login_section.dart';
 import 'components/gradient_background.dart';
 import 'screens/login_screen_refactored.dart';
 import 'screens/login_screen_responsive.dart';
+import 'screens/home_screen.dart';
+import 'screens/home_screen_desktop.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Widget Library',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -62,7 +65,7 @@ class MyApp extends StatelessWidget {
           ThemeData(brightness: Brightness.dark).textTheme,
         ),
       ),
-      home: const WidgetbookApp(),
+      home: const ResponsiveHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -334,3 +337,22 @@ class WidgetbookApp extends StatelessWidget {
 //     );
 //   }
 // }
+
+// Responsive wrapper that chooses between mobile and desktop layouts
+class ResponsiveHomePage extends StatelessWidget {
+  const ResponsiveHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Use desktop layout for screens wider than 1200px
+        if (constraints.maxWidth > 1200) {
+          return const DesktopHomePage();
+        } else {
+          return const NewHomePage();
+        }
+      },
+    );
+  }
+}
