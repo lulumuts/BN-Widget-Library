@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../components/molecules/services_section.dart';
 
 // A data model for the popular salon list items. This makes the list data-driven.
 class _SalonInfo {
@@ -23,22 +24,22 @@ class NewHomePage extends StatelessWidget {
   static const _popularSalons = [
     _SalonInfo(
         imageUrl: "https://placehold.co/85x80",
-        name: "Doris’ Salon - Stall 222",
+        name: "Doris' Salon - Stall 222",
         style: "Bob Braids",
         price: "1500 KES"),
     _SalonInfo(
         imageUrl: "https://placehold.co/85x78",
-        name: "Linet’s Salon - Stall 10",
+        name: "Linet's Salon - Stall 10",
         style: "Twist Braids",
         price: "2300 KES"),
     _SalonInfo(
         imageUrl: "https://placehold.co/82x75",
-        name: "Maggy’s Salon - Stall 321",
+        name: "Maggy's Salon - Stall 321",
         style: "Box Braids",
         price: "2000 KES"),
     _SalonInfo(
         imageUrl: "https://placehold.co/87x81",
-        name: "Connie’s Salon - Stall 55",
+        name: "Connie's Salon - Stall 55",
         style: "Bob Braids",
         price: "1500 KES"),
   ];
@@ -174,38 +175,9 @@ class NewHomePage extends StatelessWidget {
 
   // Builds the "Our Services" section with two action buttons.
   Widget _buildServicesSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'OUR SERVICES',
-            style: GoogleFonts.leagueSpartan(
-              color: const Color(0xFF332749),
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.32,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                  child: _ServiceButton(
-                      text: "Book a New Look",
-                      imageUrl: "https://placehold.co/19x19",
-                      isPrimary: true)),
-              const SizedBox(width: 12),
-              Expanded(
-                  child: _ServiceButton(
-                      text: "Book Braids Removal",
-                      isPrimary: false,
-                      iconData: Icons.close_rounded)),
-            ],
-          ),
-        ],
-      ),
+    return ServicesSection(
+      isAppointmentActive: true, // Default to "Book a New Look" active
+      isRemovalActive: false,
     );
   }
 
@@ -310,67 +282,6 @@ class NewHomePage extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.list_alt_outlined), label: "Orders"),
       ],
-    );
-  }
-}
-
-// A reusable widget for the buttons in the "Our Services" section.
-class _ServiceButton extends StatelessWidget {
-  final String text;
-  final String? imageUrl;
-  final IconData? iconData;
-  final bool isPrimary;
-
-  const _ServiceButton({
-    required this.text,
-    this.imageUrl,
-    this.iconData,
-    required this.isPrimary,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final color = isPrimary ? Colors.white : const Color(0xFF332749);
-    final bgColor = isPrimary ? const Color(0xFF332749) : Colors.transparent;
-    final borderColor =
-        isPrimary ? Colors.transparent : const Color(0xFF332749);
-
-    return Container(
-      height: 45,
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: borderColor, width: 2),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (imageUrl != null)
-            CircleAvatar(
-              radius: 13.5,
-              backgroundColor: color,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.network(imageUrl!),
-              ),
-            ),
-          if (iconData != null)
-            CircleAvatar(
-              radius: 13.5,
-              backgroundColor: const Color(0xFF332749),
-              child: Icon(iconData, size: 18, color: Colors.white),
-            ),
-          const SizedBox(width: 8),
-          Text(
-            text,
-            style: GoogleFonts.leagueSpartan(
-              color: color,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

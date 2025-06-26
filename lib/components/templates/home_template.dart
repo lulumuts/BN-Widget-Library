@@ -1,123 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../components/molecules/services_section.dart';
+import '../atoms/custom_button.dart';
+import '../atoms/atomic_text.dart';
+import '../atoms/service_button.dart';
+import '../organisms/styles_grid.dart';
+import '../molecules/salon_item.dart';
+import '../models/service_data.dart';
+import '../molecules/services_section.dart';
 
-// Reusing the same data model from the mobile version
-class _SalonInfo {
-  final String imageUrl;
-  final String name;
-  final String style;
-  final String price;
+class HomeTemplate extends StatefulWidget {
+  final List<StyleData> styles;
+  final List<ServiceButtonData> services;
+  final List<SalonData> salons;
+  final VoidCallback? onBookAppointment;
+  final String? currentUrl; // For future URL-based content switching
 
-  const _SalonInfo({
-    required this.imageUrl,
-    required this.name,
-    required this.style,
-    required this.price,
-  });
-}
-
-// A reusable widget for the buttons in the "Our Services" section.
-class _ServiceButton extends StatelessWidget {
-  final String text;
-  final String? imageUrl;
-  final IconData? iconData;
-  final bool isPrimary;
-
-  const _ServiceButton({
-    required this.text,
-    this.imageUrl,
-    this.iconData,
-    required this.isPrimary,
+  const HomeTemplate({
+    super.key,
+    required this.styles,
+    required this.services,
+    required this.salons,
+    this.onBookAppointment,
+    this.currentUrl,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final color = isPrimary ? Colors.white : const Color(0xFF332749);
-    final bgColor = isPrimary ? const Color(0xFF332749) : Colors.transparent;
-    final borderColor =
-        isPrimary ? Colors.transparent : const Color(0xFF332749);
-
-    return Container(
-      height: 45,
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: borderColor, width: 2),
-      ),
-      child: Stack(
-        children: [
-          // Centered text
-          Center(
-            child: Text(
-              text,
-              style: GoogleFonts.leagueSpartan(
-                color: color,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          // Left positioned icon
-          Positioned(
-            left: 16,
-            top: 0,
-            bottom: 0,
-            child: Center(
-              child: Row(
-                children: [
-                  if (imageUrl != null)
-                    CircleAvatar(
-                      radius: 13.5,
-                      backgroundColor: color,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Image.network(imageUrl!),
-                      ),
-                    ),
-                  if (iconData != null)
-                    CircleAvatar(
-                      radius: 13.5,
-                      backgroundColor: const Color(0xFF332749),
-                      child: Icon(iconData, size: 18, color: Colors.white),
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  State<HomeTemplate> createState() => _HomeTemplateState();
 }
 
-class DesktopHomePage extends StatelessWidget {
-  const DesktopHomePage({super.key});
-
-  // Same data as mobile version
-  static const _popularSalons = [
-    _SalonInfo(
-        imageUrl: "https://placehold.co/85x80",
-        name: "Doris' Salon - Stall 222",
-        style: "Bob Braids",
-        price: "1500 KES"),
-    _SalonInfo(
-        imageUrl: "https://placehold.co/85x78",
-        name: "Linet's Salon - Stall 10",
-        style: "Twist Braids",
-        price: "2300 KES"),
-    _SalonInfo(
-        imageUrl: "https://placehold.co/82x75",
-        name: "Maggy's Salon - Stall 321",
-        style: "Box Braids",
-        price: "2000 KES"),
-    _SalonInfo(
-        imageUrl: "https://placehold.co/87x81",
-        name: "Connie's Salon - Stall 55",
-        style: "Bob Braids",
-        price: "1500 KES"),
-  ];
+class _HomeTemplateState extends State<HomeTemplate> {
+  int? selectedStyleIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -132,12 +45,12 @@ class DesktopHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildLeftPromoSection(),
-                  const SizedBox(width: 40),
+                  _buildResponsiveSpacing(),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildRightSection(),
-                      // const SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       _buildRightContentSection(),
                     ],
                   ),
@@ -167,11 +80,17 @@ class DesktopHomePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Row(
           children: [
-            // Logo
-            SvgPicture.asset(
-              "assets/images/logo.svg",
+            // Logo placeholder
+            Container(
               width: 59.80,
               height: 65.17,
+              // color: const Color(0xFF7F38FF),
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/images/BN_LOGO.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
             const Spacer(),
             // Navigation items
@@ -210,8 +129,23 @@ class DesktopHomePage extends StatelessWidget {
   Widget _buildLeftPromoSection() {
     return LayoutBuilder(
       builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        double containerWidth;
+
+        if (screenWidth > 1800) {
+          containerWidth = 800;
+        } else if (screenWidth > 1400) {
+          containerWidth = 600;
+        } else if (screenWidth > 1200) {
+          containerWidth = 500;
+        } else if (screenWidth > 1000) {
+          containerWidth = 400;
+        } else {
+          containerWidth = 350;
+        }
+
         return Container(
-          width: MediaQuery.of(context).size.width > 1800 ? 800 : 400,
+          width: containerWidth,
           height: 832,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
@@ -357,12 +291,27 @@ class DesktopHomePage extends StatelessWidget {
     );
   }
 
-  // Builds the right content section
+  // Builds the right services section
   Widget _buildRightSection() {
     return LayoutBuilder(
       builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        double containerWidth;
+
+        if (screenWidth > 1800) {
+          containerWidth = 700;
+        } else if (screenWidth > 1400) {
+          containerWidth = 700;
+        } else if (screenWidth > 1200) {
+          containerWidth = 600;
+        } else if (screenWidth > 1000) {
+          containerWidth = 600;
+        } else {
+          containerWidth = 400;
+        }
+
         return Container(
-          width: MediaQuery.of(context).size.width > 1800 ? 750 : 700,
+          width: containerWidth,
           height: 96,
           child: _buildServicesSection(),
         );
@@ -374,10 +323,37 @@ class DesktopHomePage extends StatelessWidget {
   Widget _buildRightContentSection() {
     return LayoutBuilder(
       builder: (context, constraints) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        double containerWidth;
+        double containerHeight;
+        EdgeInsets padding;
+
+        if (screenWidth > 1800) {
+          containerWidth = 700;
+          containerHeight = 730;
+          padding = const EdgeInsets.symmetric(horizontal: 56, vertical: 40);
+        } else if (screenWidth > 1400) {
+          containerWidth = 700;
+          containerHeight = 730;
+          padding = const EdgeInsets.symmetric(horizontal: 48, vertical: 36);
+        } else if (screenWidth > 1200) {
+          containerWidth = 600;
+          containerHeight = 730;
+          padding = const EdgeInsets.symmetric(horizontal: 40, vertical: 32);
+        } else if (screenWidth > 1000) {
+          containerWidth = 600;
+          containerHeight = 730;
+          padding = const EdgeInsets.symmetric(horizontal: 32, vertical: 28);
+        } else {
+          containerWidth = 400;
+          containerHeight = 730;
+          padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 24);
+        }
+
         return Container(
-          width: MediaQuery.of(context).size.width > 1800 ? 750 : 700,
-          height: 740,
-          padding: const EdgeInsets.symmetric(horizontal: 56, vertical: 40),
+          width: containerWidth,
+          height: containerHeight,
+          padding: padding,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(32),
@@ -395,16 +371,16 @@ class DesktopHomePage extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.all(3),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildStylesSection(),
-                  const SizedBox(height: 24),
-                  _buildPopularSalonsSection(),
-                ],
-              ),
+            padding: const EdgeInsets.all(3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildStylesSection(),
+                const SizedBox(height: 24),
+                Expanded(
+                  child: _buildPopularSalonsSection(),
+                ),
+              ],
             ),
           ),
         );
@@ -435,26 +411,14 @@ class DesktopHomePage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _DesktopStyleItem(
-              imageUrl: "https://placehold.co/102x99",
-              name: "Braids",
-            ),
-            _DesktopStyleItem(
-              imageUrl: "https://placehold.co/110x84",
-              name: "Locs",
-            ),
-            _DesktopStyleItem(
-              imageUrl: "https://placehold.co/128x101",
-              name: "Twists",
-            ),
-            _DesktopStyleItem(
-              imageUrl: "https://placehold.co/121x78",
-              name: "Lines",
-            ),
-          ],
+        StylesGrid(
+          styles: widget.styles,
+          selectedIndex: selectedStyleIndex,
+          onStyleSelected: (index) {
+            setState(() {
+              selectedStyleIndex = index;
+            });
+          },
         ),
       ],
     );
@@ -475,25 +439,30 @@ class DesktopHomePage extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: const Color(0xFFF8F6FC),
-            borderRadius: BorderRadius.circular(24),
-          ),
-          child: SizedBox(
-            height: 416, // or your preferred height
+        Expanded(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF8F6FC),
+              borderRadius: BorderRadius.circular(24),
+            ),
             child: ListView.builder(
-              itemCount: _popularSalons.length,
-              itemBuilder: (context, index) =>
-                  _DesktopSalonListItem(info: _popularSalons[index]),
-              physics: AlwaysScrollableScrollPhysics(),
+              itemCount: widget.salons.length,
+              itemBuilder: (context, index) => _DesktopSalonListItem(
+                salon: widget.salons[index],
+              ),
+              physics: const AlwaysScrollableScrollPhysics(),
             ),
           ),
         ),
       ],
     );
+  }
+
+  // Builds the responsive spacing between left and right sections
+  Widget _buildResponsiveSpacing() {
+    return const SizedBox(width: 40);
   }
 }
 
@@ -510,7 +479,7 @@ class _NavItem extends StatelessWidget {
       text,
       style: GoogleFonts.leagueSpartan(
         color: isSelected ? const Color(0xFF7F38FF) : const Color(0xBF332749),
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
         letterSpacing: 0.80,
       ),
@@ -522,148 +491,23 @@ class _NavItem extends StatelessWidget {
 class _CloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Transform.rotate(
-          angle: 0.69,
-          child: Container(
-            width: 10.53,
-            height: 3,
-            decoration: const BoxDecoration(
-              color: Color(0xFF665D76),
-              borderRadius: BorderRadius.all(Radius.circular(1.5)),
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Transform.rotate(
-          angle: -0.69,
-          child: Container(
-            width: 10.53,
-            height: 3,
-            decoration: const BoxDecoration(
-              color: Color(0xFF665D76),
-              borderRadius: BorderRadius.all(Radius.circular(1.5)),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// Desktop service button widget
-class _DesktopServiceButton extends StatelessWidget {
-  final String text;
-  final String? imageUrl;
-  final IconData? iconData;
-  final bool isPrimary;
-
-  const _DesktopServiceButton({
-    required this.text,
-    this.imageUrl,
-    this.iconData,
-    required this.isPrimary,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final color = Colors.white;
-    final bgColor = Colors.transparent;
-    final borderColor =
-        isPrimary ? Colors.transparent : const Color(0xFF332749);
-
-    return Container(
-      height: 84,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: borderColor, width: 2),
+    return SvgPicture.asset(
+      'assets/images/chevron-down.svg',
+      width: 24,
+      height: 24,
+      colorFilter: const ColorFilter.mode(
+        Color(0xFF7F38FF),
+        BlendMode.srcIn,
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (imageUrl != null)
-            CircleAvatar(
-              radius: 19,
-              backgroundColor: color,
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Image.network(imageUrl!),
-              ),
-            ),
-          if (iconData != null)
-            CircleAvatar(
-              radius: 19,
-              backgroundColor: const Color(0xFF332749),
-              child: Icon(iconData, size: 20, color: Colors.white),
-            ),
-          const SizedBox(width: 12),
-          Text(
-            text,
-            style: GoogleFonts.leagueSpartan(
-              color: color,
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Desktop style item widget
-class _DesktopStyleItem extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-
-  const _DesktopStyleItem({required this.imageUrl, required this.name});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipOval(
-          child: Image.network(
-            imageUrl,
-            width: 102,
-            height: 99,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, progress) => progress == null
-                ? child
-                : const SizedBox(
-                    width: 102,
-                    height: 99,
-                    child: Center(child: CircularProgressIndicator())),
-            errorBuilder: (context, error, stackTrace) => Container(
-              width: 102,
-              height: 99,
-              color: Colors.grey[200],
-              child: Icon(Icons.error, color: Colors.grey[400]),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          name,
-          style: GoogleFonts.leagueSpartan(
-            color: const Color(0xFF332749),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
     );
   }
 }
 
 // Desktop salon list item widget
 class _DesktopSalonListItem extends StatelessWidget {
-  final _SalonInfo info;
+  final SalonData salon;
 
-  const _DesktopSalonListItem({required this.info});
+  const _DesktopSalonListItem({required this.salon});
 
   @override
   Widget build(BuildContext context) {
@@ -672,15 +516,38 @@ class _DesktopSalonListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          Container(
             width: 80,
             height: 80,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFF8F5FF),
+              border: Border.all(
+                color: const Color(0xFFE0D5FF),
+                width: 2,
+              ),
+            ),
             child: ClipOval(
-              child: Image.network(
-                info.imageUrl,
+              child: Image.asset(
+                salon.imageUrl,
                 width: 80,
                 height: 80,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF8F5FF),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.store,
+                      color: Color(0xFF7F38FF),
+                      size: 24,
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -691,7 +558,7 @@ class _DesktopSalonListItem extends StatelessWidget {
               children: [
                 const SizedBox(height: 4),
                 Text(
-                  info.name,
+                  salon.name,
                   style: GoogleFonts.leagueSpartan(
                     color: const Color(0xFF332749),
                     fontSize: 14,
@@ -700,7 +567,7 @@ class _DesktopSalonListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  info.style,
+                  salon.style,
                   style: GoogleFonts.leagueSpartan(
                     color: const Color(0xFF332749),
                     fontSize: 14,
@@ -709,7 +576,7 @@ class _DesktopSalonListItem extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  info.price,
+                  salon.price,
                   style: GoogleFonts.leagueSpartan(
                     color: const Color(0xFF332749),
                     fontSize: 14,
