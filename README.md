@@ -1,150 +1,69 @@
-# Widget Library - Atomic Design System
+# Braiding Nairobi Widget Library
 
-This is a Flutter widget library showcasing atomic design principles with Widgetbook integration for component preview and documentation.
+A comprehensive Flutter widget library showcasing reusable components for the Braiding Nairobi application.
 
-## 🏗️ Atomic Design Structure
+## 🚀 Live Demo
 
-The components are organized following atomic design principles:
+Visit the live widget library: [https://lulumuts.github.io/BN-Widget-Library/](https://lulumuts.github.io/BN-Widget-Library/)
 
-### **Atoms** (`lib/components/atoms/`)
+## 🎨 Components
 
-The smallest building blocks - basic UI elements that can't be broken down further.
+### Atoms
 
-- **AtomicButton** - Reusable button component with multiple variants
-- **AtomicText** - Typography component with predefined styles
+- **ServiceButton**: Interactive service booking buttons with SVG icons
+- **CustomButton**: Reusable button component with various styles
+- **AtomicText**: Typography component with LeagueSpartan font
 
-### **Molecules** (`lib/components/molecules/`)
+### Molecules
 
-Simple combinations of atoms that work together as a unit.
+- **ServicesSection**: Service booking section with toggle functionality
+- **StyleItem**: Individual style category display
+- **SalonItem**: Salon information display component
 
-- **StyleItem** - Card component for displaying style information
+### Organisms
 
-### **Organisms** (`lib/components/organisms/`)
+- **StylesSection**: Grid layout for style categories
+- **SalonsSection**: List of popular salons
 
-Complex UI components composed of molecules and/or atoms.
+### Templates
 
-- **StylesGrid** - Horizontal scrollable grid of style items
+- **HomeScreenTemplate**: Complete home screen layout template
 
-### **Templates** (`lib/components/templates/`)
+## 🛠️ Features
 
-Page-level components that define the structure and layout.
+- **SVG Icon Support**: Custom SVG icons for services (braids_vector.svg, braids_removal.svg)
+- **Interactive States**: Active/inactive button states with dynamic coloring
+- **Responsive Design**: Works across different screen sizes
+- **Atomic Design**: Organized component architecture
+- **Google Fonts**: LeagueSpartan typography throughout
 
-- **HomeTemplate** - Complete home page layout combining multiple organisms
+## 🎯 Key Components
 
-## 🚀 Getting Started
+### Services Section
 
-### Running Widgetbook
+- Two interactive buttons: "Book a New Look" and "Book Braids Removal"
+- SVG icons with proper active/inactive state coloring
+- Toggle functionality (only one button active at a time)
+- LeagueSpartan font styling
 
-1. Navigate to the widget_library directory:
+### Button Styling
 
-   ```bash
-   cd widget_library
-   ```
+- Active buttons: Dark purple background with white circular icon containers
+- Inactive buttons: Transparent background with colored borders
+- SVG icons: White when inactive, dark purple when active
+- Proper hover and click states
 
-2. Install dependencies:
+## 📱 Getting Started
 
-   ```bash
-   flutter pub get
-   ```
+1. Clone the repository
+2. Run `flutter pub get`
+3. Run `flutter run -d chrome` for web development
+4. Or use `flutter build web` to build for production
 
-3. Run Widgetbook:
+## 🔧 Development
 
-   ```bash
-   flutter run -d chrome --web-port=3000
-   ```
+The widget library uses Widgetbook for component development and testing. All components are built with Flutter and follow atomic design principles.
 
-4. Open your browser and go to `http://localhost:3000`
+---
 
-### Previewing Components
-
-In Widgetbook, you can:
-
-1. **Browse by Atomic Level**: Navigate through Atoms → Molecules → Organisms → Templates
-2. **Test Different Variants**: Each component has multiple use cases showing different states
-3. **Interactive Testing**: Click and interact with components in real-time
-4. **Responsive Testing**: Test components at different screen sizes
-
-## 🎨 Component Examples
-
-### AtomicButton Variants
-
-- Primary buttons
-- Secondary buttons
-- Small buttons
-- Buttons with icons (left/right)
-- Active state buttons
-
-### AtomicText Variants
-
-- Heading 1 (32px, bold)
-- Heading 2 (24px, semibold)
-- Body text (16px, regular)
-- Caption text (14px, regular)
-- Custom styled text
-
-### StyleItem
-
-- Image with title
-- Clickable cards
-- Consistent styling
-
-### StylesGrid
-
-- Horizontal scrollable grid
-- Combines multiple StyleItem molecules
-- Includes section heading
-
-### HomeTemplate
-
-- Complete page layout
-- Combines header, hero section, and content
-- Shows how organisms work together
-
-## 🔧 Development Workflow
-
-1. **Create New Atoms**: Start with the smallest components
-2. **Build Molecules**: Combine atoms into functional units
-3. **Develop Organisms**: Create complex components from molecules
-4. **Design Templates**: Build page layouts using organisms
-5. **Preview in Widgetbook**: Test and iterate on components
-
-## 📁 File Structure
-
-```
-lib/
-├── components/
-│   ├── atoms/
-│   │   ├── custom_button.dart
-│   │   └── atomic_text.dart
-│   ├── molecules/
-│   │   └── style_item.dart
-│   ├── organisms/
-│   │   └── styles_grid.dart
-│   └── templates/
-│       └── home_template.dart
-├── screens/
-└── main.dart
-```
-
-## 🎯 Benefits of Atomic Design
-
-- **Reusability**: Components can be used across different pages
-- **Consistency**: Maintains design system standards
-- **Maintainability**: Easy to update and modify components
-- **Scalability**: New components can be built from existing atoms
-- **Testing**: Each component can be tested in isolation
-- **Documentation**: Widgetbook provides living documentation
-
-## 🚀 Next Steps
-
-1. Add more atoms (inputs, icons, dividers, etc.)
-2. Create additional molecules (form fields, navigation items)
-3. Build more organisms (headers, footers, sidebars)
-4. Develop page templates for different sections
-5. Add animations and interactions
-6. Implement dark mode support
-7. Add accessibility features
-
-## License
-
-MIT
+**Updated**: Now deployed via GitHub Actions for automatic builds and deployments!
