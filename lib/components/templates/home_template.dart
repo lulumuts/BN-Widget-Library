@@ -135,10 +135,10 @@ class _HomeTemplateState extends State<HomeTemplate> {
 
         if (screenWidth > 1800) {
           containerWidth = 800;
-          containerHeight = 750;
+          containerHeight = 700;
         } else if (screenWidth > 1400) {
           containerWidth = 600;
-          containerHeight = 750;
+          containerHeight = 700;
         } else if (screenWidth > 1200) {
           containerWidth = 500;
           containerHeight = 700;
