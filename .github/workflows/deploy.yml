@@ -24,14 +24,22 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.19.0"
+          flutter-version: "3.16.0"
           channel: "stable"
 
       - name: Get dependencies
         run: flutter pub get
 
+      - name: Test simple build
+        run: |
+          echo "Testing simple build..."
+          flutter build web --release --target lib/main_simple.dart || echo "Simple build failed, trying main.dart"
+
       - name: Build web
-        run: flutter build web --base-href "/BN-Widget-Library/" --release
+        run: |
+          echo "Building main app..."
+          flutter build web --release
+          echo "Build completed successfully"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
