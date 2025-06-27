@@ -50,11 +50,29 @@ class StyleItem extends StatelessWidget {
                         size: 32,
                       ),
                     )
-                  : Image.asset(
+                  : Image.network(
                       imageUrl,
                       width: 102,
                       height: 102,
                       fit: BoxFit.cover,
+                      loadingBuilder: (context, child, progress) {
+                        if (progress == null) return child;
+                        return Container(
+                          width: 102,
+                          height: 102,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFF8F5FF),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFF7F38FF)),
+                            ),
+                          ),
+                        );
+                      },
                       errorBuilder: (context, error, stackTrace) => Container(
                         width: 102,
                         height: 102,
