@@ -33,7 +33,7 @@ jobs:
       - name: Build web
         run: |
           echo "Building Flutter web app..."
-          flutter build web --release
+          flutter build web --release --base-href "/BN-Widget-Library/"
           echo "Build completed successfully!"
 
       - name: Setup Pages
