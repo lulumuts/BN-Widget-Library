@@ -22,27 +22,27 @@ class DesktopHomePage extends StatelessWidget {
 
   static final List<StyleData> _styles = [
     const StyleData(
-      imageUrl: "https://placehold.co/102x102/7F38FF/FFFFFF?text=Braids",
+      imageUrl: "assets/images/Braids.png",
       name: "Braids",
     ),
     const StyleData(
-      imageUrl: "https://placehold.co/102x102/8B5CF6/FFFFFF?text=Locs",
+      imageUrl: "assets/images/Locs.png",
       name: "Locs",
     ),
     const StyleData(
-      imageUrl: "https://placehold.co/102x102/A855F7/FFFFFF?text=Twists",
+      imageUrl: "assets/images/Twists.png",
       name: "Twists",
     ),
     const StyleData(
-      imageUrl: "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+      imageUrl: "assets/images/Lines.png",
       name: "Lines",
     ),
     const StyleData(
-      imageUrl: "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+      imageUrl: "assets/images/Weaves.png",
       name: "Weaves",
     ),
     const StyleData(
-      imageUrl: "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+      imageUrl: "assets/images/Maintenance.png",
       name: "Maintenance",
     ),
   ];

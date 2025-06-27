@@ -534,24 +534,28 @@ class WidgetbookApp extends StatelessWidget {
                         return StylesGrid(
                           styles: const [
                             StyleData(
-                              imageUrl:
-                                  "https://placehold.co/102x102/7F38FF/FFFFFF?text=Braids",
+                              imageUrl: "assets/images/Braids.png",
                               name: "Braids",
                             ),
                             StyleData(
-                              imageUrl:
-                                  "https://placehold.co/102x102/8B5CF6/FFFFFF?text=Locs",
+                              imageUrl: "assets/images/Locs.png",
                               name: "Locs",
                             ),
                             StyleData(
-                              imageUrl:
-                                  "https://placehold.co/102x102/A855F7/FFFFFF?text=Twists",
+                              imageUrl: "assets/images/Twists.png",
                               name: "Twists",
                             ),
                             StyleData(
-                              imageUrl:
-                                  "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+                              imageUrl: "assets/images/Lines.png",
                               name: "Lines",
+                            ),
+                            StyleData(
+                              imageUrl: "assets/images/Weaves.png",
+                              name: "Weaves",
+                            ),
+                            StyleData(
+                              imageUrl: "assets/images/Maintenance.png",
+                              name: "Maintenance",
                             ),
                           ],
                           selectedIndex: getSelectedIndex(),
@@ -579,8 +583,7 @@ class WidgetbookApp extends StatelessWidget {
                             name: "Twists",
                           ),
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+                            imageUrl: "assets/images/Lines.png",
                             name: "Lines",
                           ),
                         ],
@@ -603,18 +606,15 @@ class WidgetbookApp extends StatelessWidget {
                       builder: (context) => HomeTemplate(
                         styles: const [
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/7F38FF/FFFFFF?text=Braids",
+                            imageUrl: "assets/images/Braids.png",
                             name: "Braids",
                           ),
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/8B5CF6/FFFFFF?text=Locs",
+                            imageUrl: "assets/images/Locs.png",
                             name: "Locs",
                           ),
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/A855F7/FFFFFF?text=Twists",
+                            imageUrl: "assets/images/Twists.png",
                             name: "Twists",
                           ),
                           StyleData(
@@ -623,13 +623,11 @@ class WidgetbookApp extends StatelessWidget {
                             name: "Lines",
                           ),
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+                            imageUrl: "assets/images/Weaves.png",
                             name: "Weaves",
                           ),
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+                            imageUrl: "assets/images/Maintenance.png",
                             name: "Maintenance",
                           ),
                         ],

@@ -74,7 +74,7 @@ class _RegistrationScreenRefactoredState
                             // The logo sits on top of the gradient.
                             Positioned.fill(
                               child: Image.asset(
-                                "assets/images/icon-background.png",
+                                "assets/images/Registration_bg.png",
                                 fit: BoxFit.none,
                                 height: constraints.maxHeight * 0.01,
                               ),

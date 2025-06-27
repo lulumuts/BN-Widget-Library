@@ -205,16 +205,13 @@ class NewHomePage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             children: [
-              _StyleItem(
-                  imageUrl: "https://placehold.co/78x78", name: "Braids"),
+              _StyleItem(imageUrl: "assets/images/Braids.png", name: "Braids"),
               const SizedBox(width: 20),
-              _StyleItem(imageUrl: "https://placehold.co/102x78", name: "Locs"),
+              _StyleItem(imageUrl: "assets/images/Locs.png", name: "Locs"),
               const SizedBox(width: 20),
-              _StyleItem(
-                  imageUrl: "https://placehold.co/103x81", name: "Twists"),
+              _StyleItem(imageUrl: "assets/images/Twists.png", name: "Twists"),
               const SizedBox(width: 20),
-              _StyleItem(
-                  imageUrl: "https://placehold.co/121x78", name: "Lines"),
+              _StyleItem(imageUrl: "assets/images/Lines.png", name: "Lines"),
             ],
           ),
         ),

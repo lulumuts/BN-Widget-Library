@@ -27,10 +27,10 @@ class StyleItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color:
-                  isActive ? const Color(0xFFFF0000) : const Color(0xFFF8F5FF),
+                  isActive ? const Color(0xFF7F38FF) : const Color(0xFFF8F5FF),
               border: Border.all(
                 color: isActive
-                    ? const Color(0xFFFF0000)
+                    ? const Color(0xFF7F38FF)
                     : const Color.fromARGB(255, 255, 255, 255),
                 width: 2,
               ),
@@ -41,7 +41,7 @@ class StyleItem extends StatelessWidget {
                       width: 102,
                       height: 102,
                       decoration: const BoxDecoration(
-                        color: Color(0xFFFF0000),
+                        color: Color(0xFF7F38FF),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -94,7 +94,7 @@ class StyleItem extends StatelessWidget {
             name,
             style: GoogleFonts.leagueSpartan(
               color:
-                  isActive ? const Color(0xFFFF0000) : const Color(0xFF332749),
+                  isActive ? const Color(0xFF7F38FF) : const Color(0xFF332749),
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),

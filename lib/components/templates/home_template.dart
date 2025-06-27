@@ -131,22 +131,28 @@ class _HomeTemplateState extends State<HomeTemplate> {
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
         double containerWidth;
+        double containerHeight;
 
         if (screenWidth > 1800) {
           containerWidth = 800;
+          containerHeight = 750;
         } else if (screenWidth > 1400) {
           containerWidth = 600;
+          containerHeight = 750;
         } else if (screenWidth > 1200) {
           containerWidth = 500;
+          containerHeight = 700;
         } else if (screenWidth > 1000) {
           containerWidth = 400;
+          containerHeight = 650;
         } else {
           containerWidth = 350;
+          containerHeight = 650;
         }
 
         return Container(
           width: containerWidth,
-          height: 832,
+          height: containerHeight, // Use same responsive height as right side
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             boxShadow: const [
@@ -297,17 +303,23 @@ class _HomeTemplateState extends State<HomeTemplate> {
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
         double containerWidth;
+        double containerHeight;
 
         if (screenWidth > 1800) {
-          containerWidth = 700;
+          containerWidth = 730;
+          containerHeight = 700;
         } else if (screenWidth > 1400) {
           containerWidth = 700;
+          containerHeight = 700;
         } else if (screenWidth > 1200) {
           containerWidth = 600;
+          containerHeight = 600;
         } else if (screenWidth > 1000) {
           containerWidth = 600;
+          containerHeight = 550;
         } else {
           containerWidth = 400;
+          containerHeight = 550;
         }
 
         return Container(
@@ -338,21 +350,21 @@ class _HomeTemplateState extends State<HomeTemplate> {
           padding = const EdgeInsets.symmetric(horizontal: 48, vertical: 36);
         } else if (screenWidth > 1200) {
           containerWidth = 600;
-          containerHeight = 730;
+          containerHeight = 600;
           padding = const EdgeInsets.symmetric(horizontal: 40, vertical: 32);
         } else if (screenWidth > 1000) {
           containerWidth = 600;
-          containerHeight = 730;
+          containerHeight = 550;
           padding = const EdgeInsets.symmetric(horizontal: 32, vertical: 28);
         } else {
           containerWidth = 400;
-          containerHeight = 730;
+          containerHeight = 550;
           padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 24);
         }
 
         return Container(
           width: containerWidth,
-          height: containerHeight,
+          height: containerHeight, // Use 80% of available height
           padding: padding,
           decoration: BoxDecoration(
             color: Colors.white,

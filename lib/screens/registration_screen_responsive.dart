@@ -160,7 +160,7 @@ class RegistrationScreenResponsive extends StatelessWidget {
                         // Background image
                         Positioned.fill(
                           child: Image.asset(
-                            "assets/images/BN_Login_BG.png",
+                            "assets/images/Registration_bg.png",
                             fit: BoxFit.cover,
                           ),
                         ),
