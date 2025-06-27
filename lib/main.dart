@@ -18,6 +18,8 @@ import 'components/templates/home_template.dart';
 import 'components/models/service_data.dart';
 import 'screens/login_screen_refactored.dart';
 import 'screens/login_screen_responsive.dart';
+import 'screens/registration_screen_refactored.dart';
+import 'screens/registration_screen_responsive.dart';
 import 'screens/home_screen.dart';
 import 'screens/home_screen_desktop.dart';
 import 'mobile_preview.dart';
@@ -865,6 +867,19 @@ class WidgetbookApp extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'Desktop Login',
                   builder: (context) => const LoginScreenResponsive(),
+                ),
+              ],
+            ),
+            WidgetbookComponent(
+              name: 'RegistrationScreen',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Mobile Registration',
+                  builder: (context) => const RegistrationScreenRefactored(),
+                ),
+                WidgetbookUseCase(
+                  name: 'Desktop Registration',
+                  builder: (context) => const RegistrationScreenResponsive(),
                 ),
               ],
             ),

@@ -5,10 +5,10 @@ import '../components/custom_input_field.dart';
 import '../components/button.dart';
 import '../components/social_login_section.dart';
 import '../components/gradient_background.dart';
-import 'login_screen_refactored.dart';
+import 'registration_screen_refactored.dart';
 
-class LoginScreenResponsive extends StatelessWidget {
-  const LoginScreenResponsive({super.key});
+class RegistrationScreenResponsive extends StatelessWidget {
+  const RegistrationScreenResponsive({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class LoginScreenResponsive extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Desktop Login Screen',
+          'Desktop Registration Screen',
           style: GoogleFonts.leagueSpartan(
             color: const Color(0xFF332749),
             fontWeight: FontWeight.w600,
@@ -27,9 +27,9 @@ class LoginScreenResponsive extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Use LoginScreenRefactored for screens narrower than 600px
+          // Use RegistrationScreenRefactored for screens narrower than 600px
           if (constraints.maxWidth < 600) {
-            return const LoginScreenRefactored();
+            return const RegistrationScreenRefactored();
           }
           return _buildDesktopLayout(context, constraints);
         },
@@ -207,7 +207,7 @@ class LoginScreenResponsive extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Hello!',
+                          'Welcome!',
                           style: GoogleFonts.leagueSpartan(
                             color: const Color(0xFF7F38FF),
                             fontSize: titleSize, // Use calculated size
@@ -216,14 +216,21 @@ class LoginScreenResponsive extends StatelessWidget {
                         ),
                         // const SizedBox(height: 1),
                         Text(
-                          'Please Sign in below',
+                          'Create your account below',
                           style: GoogleFonts.leagueSpartan(
                             color: const Color(0xFF7F38FF),
                             fontSize: subtitleSize, // Use calculated size
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: constraints.maxWidth > 600 ? 70 : 65),
+                        SizedBox(height: constraints.maxWidth > 600 ? 50 : 45),
+                        CustomInputField(
+                          label: 'Full Name',
+                          hintText: 'Enter your full name',
+                          controller: TextEditingController(),
+                          keyboardType: TextInputType.name,
+                        ),
+                        const SizedBox(height: 10),
                         CustomInputField(
                           label: 'Email Address',
                           hintText: 'Enter your email',
@@ -237,28 +244,23 @@ class LoginScreenResponsive extends StatelessWidget {
                           isPassword: true,
                           controller: TextEditingController(),
                         ),
+                        const SizedBox(height: 10),
+                        CustomInputField(
+                          label: 'Confirm Password',
+                          hintText: 'Confirm your password',
+                          isPassword: true,
+                          controller: TextEditingController(),
+                        ),
                         SizedBox(height: innerConstraints.maxHeight * 0.03),
                         SizedBox(
                           width: double.infinity,
                           child: CustomButton(
-                            text: 'Login',
+                            text: 'Sign Up',
                             onPressed: () {},
                             isPrimary: true,
                           ),
                         ),
                         SizedBox(height: innerConstraints.maxHeight * 0.02),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Forgot my password',
-                            style: GoogleFonts.leagueSpartan(
-                              color: const Color(0xFF332749),
-                              fontSize: bodySize, // Use calculated size
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: innerConstraints.maxHeight * 0.03),
                         // This inner Column holds the bottom part of the form
                         Column(
                           children: [
@@ -275,7 +277,7 @@ class LoginScreenResponsive extends StatelessWidget {
                                   text: TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: "Don't have an account? ",
+                                        text: "Already have an account? ",
                                         style: GoogleFonts.leagueSpartan(
                                           color: Colors.black,
                                           fontSize:
@@ -284,7 +286,7 @@ class LoginScreenResponsive extends StatelessWidget {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: 'Sign Up',
+                                        text: 'Sign In',
                                         style: GoogleFonts.leagueSpartan(
                                           color: const Color(0xFF3A0F88),
                                           fontSize:
