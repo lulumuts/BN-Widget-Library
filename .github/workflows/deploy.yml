@@ -1,4 +1,4 @@
-name: Test GitHub Actions
+name: Deploy Flutter App to GitHub Pages
 
 on:
   push:
@@ -10,30 +10,31 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create test page
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.16.0"
+          channel: "stable"
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build web
         run: |
-          echo "Creating test page..."
-          mkdir -p test-build
-          cat > test-build/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-              <title>Test Page</title>
-          </head>
-          <body>
-              <h1>GitHub Actions Test</h1>
-              <p>If you can see this, GitHub Actions is working!</p>
-              <p>Build time: $(date)</p>
-          </body>
-          </html>
-          EOF
+          echo "Building Flutter web app..."
+          flutter build web --release
+          echo "Build completed successfully!"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -41,14 +42,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./test-build"
+          path: "./build/web"
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: test
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
