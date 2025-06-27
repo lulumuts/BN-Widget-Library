@@ -75,7 +75,7 @@ class _LoginScreenRefactoredState extends State<LoginScreenRefactored> {
                             Positioned(
                               top: 103.95,
                               child: SvgPicture.asset(
-                                "assets/images/logo.svg",
+                                "assets/images/BN_LOGO.svg",
                                 width: 59.80,
                                 height: 65.17,
                               ),

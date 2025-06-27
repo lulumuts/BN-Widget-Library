@@ -172,7 +172,7 @@ class RegistrationScreenResponsive extends StatelessWidget {
                             width: imageWidth * 0.15,
                             height: imageWidth * 0.15,
                             child: SvgPicture.asset(
-                              "assets/images/logo.svg",
+                              "assets/images/BN_LOGO.svg",
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -264,11 +264,6 @@ class RegistrationScreenResponsive extends StatelessWidget {
                         // This inner Column holds the bottom part of the form
                         Column(
                           children: [
-                            Center(
-                                child: SocialLoginSection(
-                              iconSize: 30.0,
-                              fontSize: socialTextSize,
-                            )),
                             const SizedBox(height: 30),
                             Center(
                               child: GestureDetector(

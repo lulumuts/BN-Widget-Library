@@ -172,7 +172,7 @@ class LoginScreenResponsive extends StatelessWidget {
                             width: imageWidth * 0.15,
                             height: imageWidth * 0.15,
                             child: SvgPicture.asset(
-                              "assets/images/logo.svg",
+                              "assets/images/BN_LOGO.svg",
                               fit: BoxFit.contain,
                             ),
                           ),

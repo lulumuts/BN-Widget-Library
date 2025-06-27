@@ -82,7 +82,7 @@ class _RegistrationScreenRefactoredState
                             Positioned(
                               top: 103.95,
                               child: SvgPicture.asset(
-                                "assets/images/logo.svg",
+                                "assets/images/BN_LOGO.svg",
                                 width: 59.80,
                                 height: 65.17,
                               ),
@@ -153,7 +153,6 @@ class _RegistrationScreenRefactoredState
                                         text: 'Sign Up',
                                         onPressed: _handleSignUp,
                                         isPrimary: true)),
-                                const SocialLoginSection(iconSize: 28),
                                 const SizedBox(height: 16),
                                 GestureDetector(
                                   onTap: _handleSignIn,

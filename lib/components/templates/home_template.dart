@@ -135,10 +135,10 @@ class _HomeTemplateState extends State<HomeTemplate> {
 
         if (screenWidth > 1800) {
           containerWidth = 800;
-          containerHeight = 700;
+          containerHeight = 820;
         } else if (screenWidth > 1400) {
           containerWidth = 600;
-          containerHeight = 700;
+          containerHeight = 820;
         } else if (screenWidth > 1200) {
           containerWidth = 500;
           containerHeight = 700;
@@ -155,6 +155,10 @@ class _HomeTemplateState extends State<HomeTemplate> {
           height: containerHeight, // Use same responsive height as right side
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: const Color(0xFF7F38FF),
+              width: 1,
+            ),
             boxShadow: const [
               BoxShadow(
                 color: Color(0x267F38FF),
