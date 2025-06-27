@@ -1,6 +1,10 @@
-# Braiding Nairobi Widget Library
+# BN Widget Library
 
-A comprehensive Flutter widget library showcasing reusable components for the Braiding Nairobi application.
+A Flutter widget library for Braiding Nairobi app components.
+
+## Latest Update
+
+Updated with new style images and registration background - June 27, 2025
 
 ## 🚀 Live Demo
 
