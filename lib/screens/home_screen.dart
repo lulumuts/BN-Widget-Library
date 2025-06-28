@@ -205,13 +205,17 @@ class NewHomePage extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             children: [
-              _StyleItem(imageUrl: "assets/images/Braids.png", name: "Braids"),
+              _StyleItem(
+                  imageUrl: "assets/images/Braids-button.png", name: "Braids"),
               const SizedBox(width: 20),
-              _StyleItem(imageUrl: "assets/images/Locs.png", name: "Locs"),
+              _StyleItem(
+                  imageUrl: "assets/images/Locs-button.png", name: "Locs"),
               const SizedBox(width: 20),
-              _StyleItem(imageUrl: "assets/images/Twists.png", name: "Twists"),
+              _StyleItem(
+                  imageUrl: "assets/images/Twists-button.png", name: "Twists"),
               const SizedBox(width: 20),
-              _StyleItem(imageUrl: "assets/images/Lines.png", name: "Lines"),
+              _StyleItem(
+                  imageUrl: "assets/images/Lines-button.png", name: "Lines"),
             ],
           ),
         ),

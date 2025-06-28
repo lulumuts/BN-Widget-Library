@@ -534,27 +534,27 @@ class WidgetbookApp extends StatelessWidget {
                         return StylesGrid(
                           styles: const [
                             StyleData(
-                              imageUrl: "assets/images/Braids.png",
+                              imageUrl: "assets/images/Braids-button.png",
                               name: "Braids",
                             ),
                             StyleData(
-                              imageUrl: "assets/images/Locs.png",
+                              imageUrl: "assets/images/Locs-button.png",
                               name: "Locs",
                             ),
                             StyleData(
-                              imageUrl: "assets/images/Twists.png",
+                              imageUrl: "assets/images/Twists-button.png",
                               name: "Twists",
                             ),
                             StyleData(
-                              imageUrl: "assets/images/Lines.png",
+                              imageUrl: "assets/images/Lines-button.png",
                               name: "Lines",
                             ),
                             StyleData(
-                              imageUrl: "assets/images/Weaves.png",
+                              imageUrl: "assets/images/Weaves-button.png",
                               name: "Weaves",
                             ),
                             StyleData(
-                              imageUrl: "assets/images/Maintenance.png",
+                              imageUrl: "assets/images/Maintenance-button.png",
                               name: "Maintenance",
                             ),
                           ],
@@ -583,7 +583,7 @@ class WidgetbookApp extends StatelessWidget {
                             name: "Twists",
                           ),
                           StyleData(
-                            imageUrl: "assets/images/Lines.png",
+                            imageUrl: "assets/images/Lines-button.png",
                             name: "Lines",
                           ),
                         ],
@@ -606,15 +606,15 @@ class WidgetbookApp extends StatelessWidget {
                       builder: (context) => HomeTemplate(
                         styles: const [
                           StyleData(
-                            imageUrl: "assets/images/Braids.png",
+                            imageUrl: "assets/images/Braids-button.png",
                             name: "Braids",
                           ),
                           StyleData(
-                            imageUrl: "assets/images/Locs.png",
+                            imageUrl: "assets/images/Locs-button.png",
                             name: "Locs",
                           ),
                           StyleData(
-                            imageUrl: "assets/images/Twists.png",
+                            imageUrl: "assets/images/Twists-button.png",
                             name: "Twists",
                           ),
                           StyleData(
@@ -623,11 +623,11 @@ class WidgetbookApp extends StatelessWidget {
                             name: "Lines",
                           ),
                           StyleData(
-                            imageUrl: "assets/images/Weaves.png",
+                            imageUrl: "assets/images/Weaves-button.png",
                             name: "Weaves",
                           ),
                           StyleData(
-                            imageUrl: "assets/images/Maintenance.png",
+                            imageUrl: "assets/images/Maintenance-button.png",
                             name: "Maintenance",
                           ),
                         ],
