@@ -288,7 +288,7 @@ class WidgetbookApp extends StatelessWidget {
                             'https://placehold.co/102x102/7F38FF/FFFFFF?text=Braids',
                             'https://placehold.co/102x102/8B5CF6/FFFFFF?text=Locs',
                             'https://placehold.co/102x102/A855F7/FFFFFF?text=Twists',
-                            'https://placehold.co/102x102/C084FC/FFFFFF?text=Lines',
+                            'assets/images/Lines-button.png',
                           ],
                           initialOption:
                               'https://placehold.co/102x102/7F38FF/FFFFFF?text=Braids',
