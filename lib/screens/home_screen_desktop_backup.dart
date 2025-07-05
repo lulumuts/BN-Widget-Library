@@ -27,8 +27,6 @@ class _ServiceButton extends StatelessWidget {
 
   const _ServiceButton({
     required this.text,
-    this.imageUrl,
-    this.iconData,
     required this.isPrimary,
   });
 
@@ -175,15 +173,15 @@ class DesktopHomePage extends StatelessWidget {
             ),
             const Spacer(),
             // Navigation items
-            _NavItem(text: "Home", isSelected: true),
+            const _NavItem(text: "Home", isSelected: true),
             const SizedBox(width: 40),
-            _NavItem(text: "Salons"),
+            const _NavItem(text: "Salons"),
             const SizedBox(width: 40),
-            _NavItem(text: "Chat"),
+            const _NavItem(text: "Chat"),
             const SizedBox(width: 40),
-            _NavItem(text: "Orders"),
+            const _NavItem(text: "Orders"),
             const SizedBox(width: 40),
-            _NavItem(text: "Lulu"),
+            const _NavItem(text: "Lulu"),
             const SizedBox(width: 20),
             // Profile avatar
             Container(
@@ -361,7 +359,7 @@ class DesktopHomePage extends StatelessWidget {
   Widget _buildRightSection() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Container(
+        return SizedBox(
           width: MediaQuery.of(context).size.width > 1800 ? 750 : 700,
           height: 96,
           child: _buildServicesSection(),
@@ -395,7 +393,7 @@ class DesktopHomePage extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: EdgeInsets.all(3),
+            padding: const EdgeInsets.all(3),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -414,7 +412,7 @@ class DesktopHomePage extends StatelessWidget {
 
   // Builds the "Our Services" section with two action buttons.
   Widget _buildServicesSection() {
-    return ServicesSection(
+    return const ServicesSection(
       isAppointmentActive: true, // Default to "Book a New Look" active
       isRemovalActive: false,
     );
@@ -488,7 +486,7 @@ class DesktopHomePage extends StatelessWidget {
               itemCount: _popularSalons.length,
               itemBuilder: (context, index) =>
                   _DesktopSalonListItem(info: _popularSalons[index]),
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
             ),
           ),
         ),
@@ -561,15 +559,13 @@ class _DesktopServiceButton extends StatelessWidget {
 
   const _DesktopServiceButton({
     required this.text,
-    this.imageUrl,
-    this.iconData,
     required this.isPrimary,
   });
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.white;
-    final bgColor = Colors.transparent;
+    const color = Colors.white;
+    const bgColor = Colors.transparent;
     final borderColor =
         isPrimary ? Colors.transparent : const Color(0xFF332749);
 

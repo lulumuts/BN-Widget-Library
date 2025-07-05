@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
-import 'components/button.dart';
-import 'components/custom_input_field.dart';
-import 'components/social_login_section.dart';
-import 'components/gradient_background.dart';
+import 'components/atoms/custom_input_field.dart';
+import 'components/atoms/social_login_section.dart';
+import 'components/atoms/gradient_background.dart';
 import 'components/atoms/custom_button.dart';
+import 'components/atoms/atomic_button.dart';
 import 'components/atoms/atomic_text.dart';
 import 'components/atoms/service_button.dart';
 import 'components/molecules/style_item.dart';
 import 'components/molecules/salon_item.dart';
 import 'components/molecules/services_section.dart';
+import 'components/molecules/salon_card.dart';
 import 'components/organisms/styles_grid.dart';
 import 'components/organisms/styles_section.dart';
 import 'components/templates/home_template.dart';
+import 'components/templates/salons_template.dart';
 import 'components/models/service_data.dart';
 import 'screens/login_screen_refactored.dart';
 import 'screens/login_screen_responsive.dart';
@@ -23,7 +25,11 @@ import 'screens/registration_screen_responsive.dart';
 import 'screens/home_screen.dart';
 import 'screens/home_screen_desktop.dart';
 import 'mobile_preview.dart';
-import 'test_svg.dart';
+
+import 'components/organisms/home_cards_template.dart';
+import 'screens/salons_screen.dart';
+import 'screens/mobile_salon_screen.dart';
+import 'components/atoms/rating_stars.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -314,6 +320,87 @@ class WidgetbookApp extends StatelessWidget {
                     ),
                   ],
                 ),
+                WidgetbookComponent(
+                  name: 'CustomInputField',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Email Input',
+                      builder: (context) => const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: CustomInputField(
+                          label: 'Email Address',
+                          hintText: 'Enter your email',
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                      ),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Password Input',
+                      builder: (context) => const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: CustomInputField(
+                          label: 'Password',
+                          hintText: 'Enter your password',
+                          isPassword: true,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'GradientBackground',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Gradient Background',
+                      builder: (context) => const SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: GradientBackground(
+                          child: Center(
+                            child: Text(
+                              'Gradient Background',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'SocialLoginSection',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Social Login',
+                      builder: (context) => const Padding(
+                        padding: EdgeInsets.all(20),
+                        child: SocialLoginSection(),
+                      ),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'RatingStars',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Interactive Rating Stars',
+                      builder: (context) {
+                        final filledStars = context.knobs.list(
+                          label: 'Filled Stars',
+                          options: ['0', '1', '2', '3', '4', '5'],
+                          initialOption: '0',
+                        );
+                        return Center(
+                          child: RatingStars(
+                            filledStars: int.parse(filledStars),
+                            size: 32,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ],
             ),
             WidgetbookFolder(
@@ -348,106 +435,134 @@ class WidgetbookApp extends StatelessWidget {
                           initialOption: 'assets/images/icon-background.png',
                         );
 
-                        return Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Tapped on $salonName'),
-                                  duration: const Duration(seconds: 1),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: 400,
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFF8F6FC),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 80,
-                                    height: 80,
-                                    child: Container(
-                                      width: 80,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: const Color(0xFFF8F5FF),
-                                        border: Border.all(
-                                          color: const Color(0xFFE0D5FF),
-                                          width: 2,
-                                        ),
+                        return LayoutBuilder(
+                          builder: (context, constraints) {
+                            return Center(
+                              child: SizedBox(
+                                height: constraints.maxHeight *
+                                    0.1, // 10% of screen height
+                                child: GestureDetector(
+                                  onTap: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Tapped on $salonName'),
+                                        duration: const Duration(seconds: 1),
                                       ),
-                                      child: ClipOval(
-                                        child: Image.asset(
-                                          imageUrl,
-                                          width: 80,
-                                          height: 80,
-                                          fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Container(
-                                              width: 80,
-                                              height: 80,
-                                              decoration: BoxDecoration(
-                                                color: const Color(0xFFF8F5FF),
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: const Icon(
-                                                Icons.store,
-                                                color: Color(0xFF7F38FF),
-                                                size: 24,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 400,
+                                    padding: const EdgeInsets.all(
+                                        8), // Reduced padding
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFF8F6FC),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment
+                                          .center, // Changed to center
                                       children: [
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          salonName,
-                                          style: GoogleFonts.leagueSpartan(
-                                            color: const Color(0xFF332749),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
+                                        SizedBox(
+                                          width: 50, // Reduced size
+                                          height: 50, // Reduced size
+                                          child: Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: const Color(0xFFF8F5FF),
+                                              border: Border.all(
+                                                color: const Color(0xFFE0D5FF),
+                                                width: 2,
+                                              ),
+                                            ),
+                                            child: ClipOval(
+                                              child: Image.asset(
+                                                imageUrl,
+                                                width: 50,
+                                                height: 50,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Container(
+                                                    width: 50,
+                                                    height: 50,
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      color: Color(0xFFF8F5FF),
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.store,
+                                                      color: Color(0xFF7F38FF),
+                                                      size:
+                                                          20, // Reduced icon size
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          styleName,
-                                          style: GoogleFonts.leagueSpartan(
-                                            color: const Color(0xFF332749),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          price,
-                                          style: GoogleFonts.leagueSpartan(
-                                            color: const Color(0xFF332749),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
+                                        const SizedBox(
+                                            width: 12), // Reduced spacing
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .center, // Center vertically
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                salonName,
+                                                style:
+                                                    GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF332749),
+                                                  fontSize:
+                                                      12, // Reduced font size
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(
+                                                  height: 2), // Reduced spacing
+                                              Text(
+                                                styleName,
+                                                style:
+                                                    GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF332749),
+                                                  fontSize:
+                                                      11, // Reduced font size
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(
+                                                  height: 2), // Reduced spacing
+                                              Text(
+                                                price,
+                                                style:
+                                                    GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF332749),
+                                                  fontSize:
+                                                      11, // Reduced font size
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     ),
@@ -483,11 +598,89 @@ class WidgetbookApp extends StatelessWidget {
                   ],
                 ),
                 WidgetbookComponent(
-                  name: 'SvgTest',
+                  name: 'SalonCard',
                   useCases: [
                     WidgetbookUseCase(
-                      name: 'SVG Loading Test',
-                      builder: (context) => const SvgTestWidget(),
+                      name: 'Interactive Salon Card',
+                      builder: (context) {
+                        final salonName = context.knobs.string(
+                          label: 'Salon Name',
+                          description: 'Name of the salon',
+                          initialValue: "Cathy's Salon",
+                        );
+                        final imageUrl = context.knobs.list(
+                          label: 'Image URL',
+                          options: [
+                            'None',
+                            'assets/images/Weekly_Feature.png',
+                            'assets/images/Beyond_the_chair.png',
+                            'assets/images/Profile_notification.png',
+                          ],
+                          initialOption: 'None',
+                        );
+
+                        return Center(
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              final maxCardWidth = constraints.maxWidth * 0.2;
+                              return ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: maxCardWidth,
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 168.28 / 220,
+                                  child: SalonCard(
+                                    salonName: salonName,
+                                    imageUrl:
+                                        imageUrl == 'None' ? null : imageUrl,
+                                    onReadStory: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content:
+                                              Text('Read story for $salonName'),
+                                          duration: const Duration(seconds: 1),
+                                        ),
+                                      );
+                                    },
+                                    onBookNow: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content:
+                                              Text('Book now for $salonName'),
+                                          duration: const Duration(seconds: 1),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'RatingStars',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Interactive Rating Stars',
+                      builder: (context) {
+                        final filledStars = context.knobs.list(
+                          label: 'Filled Stars',
+                          options: ['0', '1', '2', '3', '4', '5'],
+                          initialOption: '0',
+                        );
+                        return Center(
+                          child: RatingStars(
+                            filledStars: int.parse(filledStars),
+                            size: 32,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -555,7 +748,7 @@ class WidgetbookApp extends StatelessWidget {
                             ),
                             StyleData(
                               imageUrl: "assets/images/Maintenance-button.png",
-                              name: "Maintenance",
+                              name: "Natural",
                             ),
                           ],
                           selectedIndex: getSelectedIndex(),
@@ -593,6 +786,24 @@ class WidgetbookApp extends StatelessWidget {
                     ),
                   ],
                 ),
+                WidgetbookComponent(
+                  name: 'HomeCardsTemplate',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Scrollable Cards Grid',
+                      builder: (context) => HomeCardsTemplate(
+                        cardImages: [
+                          'assets/images/Weekly_Feature.png',
+                          'assets/images/LinesBackground.png',
+                          'assets/images/TwistsBackground.png',
+                          'assets/images/LocsBackground.png',
+                          'assets/images/WeavesBackground.png',
+                          'assets/images/MaintenanceBackground.png',
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             WidgetbookFolder(
@@ -618,8 +829,7 @@ class WidgetbookApp extends StatelessWidget {
                             name: "Twists",
                           ),
                           StyleData(
-                            imageUrl:
-                                "https://placehold.co/102x102/C084FC/FFFFFF?text=Lines",
+                            imageUrl: "assets/images/Lines-button.png",
                             name: "Lines",
                           ),
                           StyleData(
@@ -628,7 +838,7 @@ class WidgetbookApp extends StatelessWidget {
                           ),
                           StyleData(
                             imageUrl: "assets/images/Maintenance-button.png",
-                            name: "Maintenance",
+                            name: "Natural",
                           ),
                         ],
                         services: const [
@@ -722,131 +932,31 @@ class WidgetbookApp extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'CustomButton',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Primary',
-                  builder: (context) => Center(
-                    child: CustomButton(
-                      text: 'Primary',
-                      onPressed: () {},
+                WidgetbookComponent(
+                  name: 'SalonsTemplate',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Layout with Scrollable Cards',
+                      builder: (context) {
+                        final leftOptions = [
+                          'Braids',
+                          'Lines',
+                          'Twists',
+                          'Locs',
+                          'Weaves',
+                          'Natural',
+                        ];
+                        final leftOption = context.knobs.list(
+                          label: 'Left Container Option',
+                          options: leftOptions,
+                        );
+                        final selectedIndex =
+                            leftOptions.indexOf(leftOption ?? leftOptions[0]);
+                        return SalonsTemplate(
+                            selectedLeftOption: selectedIndex);
+                      },
                     ),
-                  ),
-                ),
-                WidgetbookUseCase(
-                  name: 'Secondary',
-                  builder: (context) => Center(
-                    child: CustomButton(
-                      text: 'Secondary',
-                      isPrimary: false,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                WidgetbookUseCase(
-                  name: 'Secondary with Icon',
-                  builder: (context) => Center(
-                    child: CustomButton(
-                      text: 'Secondary',
-                      isPrimary: false,
-                      icon: Icons.chevron_right,
-                      iconPosition: IconPosition.right,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                WidgetbookUseCase(
-                  name: 'Small',
-                  builder: (context) => Center(
-                    child: CustomButton(
-                      text: 'Small',
-                      isSmall: true,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                WidgetbookUseCase(
-                  name: 'Small Secondary',
-                  builder: (context) => Center(
-                    child: CustomButton(
-                      text: 'Small Secondary',
-                      isPrimary: false,
-                      isSmall: true,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                WidgetbookUseCase(
-                  name: 'Active',
-                  builder: (context) => Center(
-                    child: CustomButton(
-                      text: 'Active',
-                      active: true,
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'CustomInputField',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Email Input',
-                  builder: (context) => const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: CustomInputField(
-                      label: 'Email Address',
-                      hintText: 'Enter your email',
-                      keyboardType: TextInputType.emailAddress,
-                    ),
-                  ),
-                ),
-                WidgetbookUseCase(
-                  name: 'Password Input',
-                  builder: (context) => const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: CustomInputField(
-                      label: 'Password',
-                      hintText: 'Enter your password',
-                      isPassword: true,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'SocialLoginSection',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Social Login',
-                  builder: (context) => const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: SocialLoginSection(),
-                  ),
-                ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'GradientBackground',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Gradient Background',
-                  builder: (context) => SizedBox(
-                    width: 200,
-                    height: 200,
-                    child: GradientBackground(
-                      child: const Center(
-                        child: Text(
-                          'Gradient Background',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -891,6 +1001,55 @@ class WidgetbookApp extends StatelessWidget {
                 WidgetbookUseCase(
                   name: 'Mobile Home Screen',
                   builder: (context) => const NewHomePage(),
+                ),
+              ],
+            ),
+            WidgetbookComponent(
+              name: 'SalonsScreen',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Desktop Salons Screen',
+                  builder: (context) {
+                    final leftOptions = [
+                      'Braids',
+                      'Lines',
+                      'Twists',
+                      'Locs',
+                      'Weaves',
+                      'Natural',
+                    ];
+                    final leftOption = context.knobs.list(
+                      label: 'Left Container Option',
+                      options: leftOptions,
+                      initialOption: leftOptions[0],
+                    );
+                    final selectedIndex = leftOptions.indexOf(leftOption);
+                    // Ensure we have a valid index
+                    final safeIndex = selectedIndex >= 0 ? selectedIndex : 0;
+                    return SalonsTemplate(selectedLeftOption: safeIndex);
+                  },
+                ),
+                WidgetbookUseCase(
+                  name: 'Mobile Salons Screen',
+                  builder: (context) {
+                    final leftOptions = [
+                      'Braids',
+                      'Lines',
+                      'Twists',
+                      'Locs',
+                      'Weaves',
+                      'Natural',
+                    ];
+                    final leftOption = context.knobs.list(
+                      label: 'Left Container Option',
+                      options: leftOptions,
+                      initialOption: leftOptions[0],
+                    );
+                    final selectedIndex = leftOptions.indexOf(leftOption);
+                    // Ensure we have a valid index
+                    final safeIndex = selectedIndex >= 0 ? selectedIndex : 0;
+                    return MobileSalonScreen(selectedLeftOption: safeIndex);
+                  },
                 ),
               ],
             ),

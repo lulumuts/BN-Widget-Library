@@ -6,8 +6,10 @@ import '../atoms/atomic_text.dart';
 import '../atoms/service_button.dart';
 import '../organisms/styles_grid.dart';
 import '../molecules/salon_item.dart';
+import '../atoms/rating_stars.dart';
 import '../models/service_data.dart';
 import '../molecules/services_section.dart';
+import 'dart:async';
 
 class HomeTemplate extends StatefulWidget {
   final List<StyleData> styles;
@@ -50,7 +52,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildRightSection(),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       _buildRightContentSection(),
                     ],
                   ),
@@ -81,7 +83,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
         child: Row(
           children: [
             // Logo placeholder
-            Container(
+            SizedBox(
               width: 59.80,
               height: 65.17,
               // color: const Color(0xFF7F38FF),
@@ -94,15 +96,15 @@ class _HomeTemplateState extends State<HomeTemplate> {
             ),
             const Spacer(),
             // Navigation items
-            _NavItem(text: "Home", isSelected: true),
+            const _NavItem(text: "Home", isSelected: true),
             const SizedBox(width: 40),
-            _NavItem(text: "Salons"),
+            const _NavItem(text: "Salons"),
             const SizedBox(width: 40),
-            _NavItem(text: "Chat"),
+            const _NavItem(text: "Chat"),
             const SizedBox(width: 40),
-            _NavItem(text: "Orders"),
+            const _NavItem(text: "Orders"),
             const SizedBox(width: 40),
-            _NavItem(text: "Lulu"),
+            const _NavItem(text: "Lulu"),
             const SizedBox(width: 20),
             // Profile avatar
             Container(
@@ -130,29 +132,43 @@ class _HomeTemplateState extends State<HomeTemplate> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
+        final screenHeight = MediaQuery.of(context).size.height;
         double containerWidth;
         double containerHeight;
 
+        // Calculate width based on screen width
         if (screenWidth > 1800) {
-          containerWidth = 800;
-          containerHeight = 820;
+          containerWidth = screenWidth * 0.3; // 25% of screen width
         } else if (screenWidth > 1400) {
-          containerWidth = 600;
-          containerHeight = 820;
+          containerWidth = screenWidth * 0.3; // 30% of screen width
         } else if (screenWidth > 1200) {
-          containerWidth = 500;
-          containerHeight = 700;
+          containerWidth = screenWidth * 0.35; // 35% of screen width
         } else if (screenWidth > 1000) {
-          containerWidth = 400;
-          containerHeight = 650;
+          containerWidth = screenWidth * 0.4; // 40% of screen width
         } else {
-          containerWidth = 350;
-          containerHeight = 650;
+          containerWidth = screenWidth * 0.45; // 45% of screen width
         }
+
+        // Calculate height based on screen height with better responsiveness
+        if (screenHeight > 1200) {
+          containerHeight = screenHeight * 0.7; // 70% for very large screens
+        } else if (screenHeight > 1000) {
+          containerHeight = screenHeight * 0.8; // 75% for large screens
+        } else if (screenHeight > 800) {
+          containerHeight = screenHeight * 0.8; // 80% for medium screens
+        } else if (screenHeight > 600) {
+          containerHeight = screenHeight * 0.8; // 85% for smaller screens
+        } else {
+          containerHeight = screenHeight * 0.9; // 90% for very small screens
+        }
+
+        // Ensure minimum and maximum sizes with better constraints
+        containerWidth = containerWidth.clamp(300.0, 800.0);
+        containerHeight = containerHeight.clamp(500.0, 900.0);
 
         return Container(
           width: containerWidth,
-          height: containerHeight, // Use same responsive height as right side
+          height: containerHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
@@ -172,127 +188,8 @@ class _HomeTemplateState extends State<HomeTemplate> {
             borderRadius: BorderRadius.circular(24),
             child: Stack(
               children: [
-                // Background image
-                Positioned.fill(
-                  child: Image.network(
-                    "https://placehold.co/622x944",
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                // Gradient overlay
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 427,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment(0.50, -0.20),
-                        end: Alignment(0.50, 1.00),
-                        colors: [
-                          Color(0x00F5F5F5),
-                          Color(0x00D1C9E0),
-                          Color(0x6FA390C5),
-                          Color(0xCB603D9E),
-                          Color(0xFF3A0F88)
-                        ],
-                      ),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(24),
-                        bottomRight: Radius.circular(24),
-                      ),
-                    ),
-                  ),
-                ),
-                // Text content
-                Positioned(
-                  bottom: 200,
-                  left: 47,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Get',
-                              style: GoogleFonts.leagueSpartan(
-                                color: const Color(0xFF332749),
-                                fontSize: 32,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' 10% ',
-                              style: GoogleFonts.leagueSpartan(
-                                color: const Color(0xFF332749),
-                                fontSize: 32,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'off your next',
-                              style: GoogleFonts.leagueSpartan(
-                                color: const Color(0xFF332749),
-                                fontSize: 32,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            TextSpan(
-                              text: ' \nKnotless Braids\n ',
-                              style: GoogleFonts.leagueSpartan(
-                                color: const Color(0xFF332749),
-                                fontSize: 32,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Book before 12 of June 2025 to\nredeem offer!',
-                        style: GoogleFonts.leagueSpartan(
-                          color: const Color(0xFF332749),
-                          fontSize: 24,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Container(
-                            width: 18,
-                            height: 18,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFF7F38FF),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 17),
-                          Container(
-                            width: 18,
-                            height: 18,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFC4BAD7),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 17),
-                          Container(
-                            width: 18,
-                            height: 18,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFC4BAD7),
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                // Carousel content (now includes background images)
+                const _PromoCarousel(),
               ],
             ),
           ),
@@ -306,29 +203,42 @@ class _HomeTemplateState extends State<HomeTemplate> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
+        final screenHeight = MediaQuery.of(context).size.height;
         double containerWidth;
         double containerHeight;
 
+        // Calculate width based on screen width
         if (screenWidth > 1800) {
-          containerWidth = 730;
-          containerHeight = 700;
+          containerWidth = screenWidth * 0.35; // 35% of screen width
         } else if (screenWidth > 1400) {
-          containerWidth = 700;
-          containerHeight = 700;
+          containerWidth = screenWidth * 0.4; // 40% of screen width
         } else if (screenWidth > 1200) {
-          containerWidth = 600;
-          containerHeight = 600;
+          containerWidth = screenWidth * 0.45; // 45% of screen width
         } else if (screenWidth > 1000) {
-          containerWidth = 600;
-          containerHeight = 550;
+          containerWidth = screenWidth * 0.5; // 50% of screen width
         } else {
-          containerWidth = 400;
-          containerHeight = 550;
+          containerWidth = screenWidth * 0.55; // 55% of screen width
         }
 
-        return Container(
+        // Calculate height based on screen height
+        if (screenHeight > 1000) {
+          containerHeight =
+              screenHeight * 0.1; // 15% of screen height for services
+        } else if (screenHeight > 750) {
+          containerHeight =
+              screenHeight * 0.1; // 18% of screen height for services
+        } else {
+          containerHeight =
+              screenHeight * 0.1; // 20% of screen height for services
+        }
+
+        // Ensure minimum and maximum sizes
+        containerWidth = containerWidth.clamp(350.0, 800.0);
+        containerHeight = containerHeight.clamp(80.0, 150.0);
+
+        return SizedBox(
           width: containerWidth,
-          height: 96,
+          height: containerHeight,
           child: _buildServicesSection(),
         );
       },
@@ -340,31 +250,46 @@ class _HomeTemplateState extends State<HomeTemplate> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = MediaQuery.of(context).size.width;
+        final screenHeight = MediaQuery.of(context).size.height;
         double containerWidth;
         double containerHeight;
         EdgeInsets padding;
 
+        // Calculate width based on screen width
         if (screenWidth > 1800) {
-          containerWidth = 700;
-          containerHeight = 730;
+          containerWidth = screenWidth * 0.35; // 35% of screen width
           padding = const EdgeInsets.symmetric(horizontal: 56, vertical: 40);
         } else if (screenWidth > 1400) {
-          containerWidth = 700;
-          containerHeight = 730;
+          containerWidth = screenWidth * 0.4; // 40% of screen width
           padding = const EdgeInsets.symmetric(horizontal: 48, vertical: 36);
         } else if (screenWidth > 1200) {
-          containerWidth = 600;
-          containerHeight = 600;
+          containerWidth = screenWidth * 0.45; // 45% of screen width
           padding = const EdgeInsets.symmetric(horizontal: 40, vertical: 32);
         } else if (screenWidth > 1000) {
-          containerWidth = 600;
-          containerHeight = 550;
+          containerWidth = screenWidth * 0.5; // 50% of screen width
           padding = const EdgeInsets.symmetric(horizontal: 32, vertical: 28);
         } else {
-          containerWidth = 400;
-          containerHeight = 550;
+          containerWidth = screenWidth * 0.55; // 55% of screen width
           padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 24);
         }
+
+        // Calculate height based on screen height with better responsiveness
+        if (screenHeight > 1200) {
+          containerHeight = screenHeight * 0.7; // 70% for very large screens
+        } else if (screenHeight > 1000) {
+          containerHeight = screenHeight * 0.7; // 75% for large screens
+        } else if (screenHeight > 800) {
+          containerHeight = screenHeight * 0.7; // 80% for medium screens
+        } else if (screenHeight > 600) {
+          containerHeight = screenHeight * 0.7; // 85% for smaller screens
+        } else {
+          containerHeight = screenHeight * 0.7; // 90% for very small screens
+        }
+
+        // Ensure minimum and maximum sizes with better constraints
+        containerWidth = containerWidth.clamp(350.0, 800.0);
+        containerHeight = containerHeight.clamp(
+            400.0, 1000.0); // Adjusted range for better responsiveness
 
         return Container(
           width: containerWidth,
@@ -406,7 +331,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
 
   // Builds the "Our Services" section with two action buttons.
   Widget _buildServicesSection() {
-    return ServicesSection(
+    return const ServicesSection(
       isAppointmentActive: true, // Default to "Book a New Look" active
       isRemovalActive: false,
     );
@@ -553,8 +478,8 @@ class _DesktopSalonListItem extends StatelessWidget {
                   return Container(
                     width: 80,
                     height: 80,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF8F5FF),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF8F5FF),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -599,10 +524,247 @@ class _DesktopSalonListItem extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                const SizedBox(height: 4),
+                RatingStars(
+                  filledStars: 5,
+                  size: 20,
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _PromoCarousel extends StatefulWidget {
+  const _PromoCarousel({super.key});
+
+  @override
+  State<_PromoCarousel> createState() => _PromoCarouselState();
+}
+
+class _PromoCarouselState extends State<_PromoCarousel> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  Timer? _timer;
+
+  final List<Map<String, dynamic>> _carouselData = [
+    {
+      'image': 'assets/images/Weekly_Feature.png',
+      'headline': TextSpan(
+        children: [
+          TextSpan(
+              text: 'Get',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w500)),
+          TextSpan(
+              text: ' 10% ',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700)),
+          TextSpan(
+              text: 'off your next',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w500)),
+          TextSpan(
+              text: '\nKnotless Braids\n',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700)),
+        ],
+      ),
+      'subtext': 'Book before 12 of June 2025 to\nredeem offer!',
+    },
+    {
+      'image': 'assets/images/Beyond_the_chair.png',
+      'headline': TextSpan(
+        children: [
+          TextSpan(
+              text: 'Beyond the Chair',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700)),
+          TextSpan(
+              text: '\nExperience',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w500)),
+        ],
+      ),
+      'subtext':
+          'Discover our premium styling services\nand expert braiding techniques!',
+    },
+    {
+      'image': 'assets/images/Profile_notification.png',
+      'headline': TextSpan(
+        children: [
+          TextSpan(
+              text: 'Stay Updated',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700)),
+          TextSpan(
+              text: '\nGet Notified',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w500)),
+        ],
+      ),
+      'subtext': 'Never miss out on new styles,\noffers, and appointments!',
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      int nextPage = (_currentPage + 1) % _carouselData.length;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        PageView.builder(
+          controller: _pageController,
+          itemCount: _carouselData.length,
+          onPageChanged: (index) {
+            setState(() {
+              _currentPage = index;
+            });
+          },
+          itemBuilder: (context, index) {
+            final data = _carouselData[index];
+            return Stack(
+              children: [
+                // Background image for this slide
+                Positioned.fill(
+                  child: Image.asset(
+                    data['image'],
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                // Gradient overlay
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: FractionallySizedBox(
+                    widthFactor: 1,
+                    heightFactor: 0.7,
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0x00F5F5F5),
+                            Color(0x00D1C9E0),
+                            Color(0x6FA390C5),
+                            Color(0xCB603D9E),
+                            Color(0xFF3A0F88)
+                          ],
+                        ),
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(24),
+                          bottomRight: Radius.circular(24),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Content overlay
+                _PromoContent(
+                  headline: data['headline'],
+                  subtext: data['subtext'],
+                ),
+              ],
+            );
+          },
+        ),
+        // Dots at the bottom center
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 24,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(
+                  _carouselData.length,
+                  (i) => Container(
+                        width: 18,
+                        height: 18,
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: i == _currentPage
+                              ? const Color(0xFF7F38FF)
+                              : const Color(0xFFC4BAD7),
+                          shape: BoxShape.circle,
+                        ),
+                      )),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PromoContent extends StatelessWidget {
+  final TextSpan headline;
+  final String subtext;
+  const _PromoContent({required this.headline, required this.subtext});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(32, 0, 32, 64),
+      child: Align(
+        alignment: Alignment.bottomLeft,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(headline),
+            Text(
+              subtext,
+              style: GoogleFonts.leagueSpartan(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w400,
+                height: 1.1,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

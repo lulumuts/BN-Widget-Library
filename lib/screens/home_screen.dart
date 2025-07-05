@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/molecules/services_section.dart';
+import '../components/atoms/rating_stars.dart';
 
 // A data model for the popular salon list items. This makes the list data-driven.
 class _SalonInfo {
@@ -175,7 +176,7 @@ class NewHomePage extends StatelessWidget {
 
   // Builds the "Our Services" section with two action buttons.
   Widget _buildServicesSection() {
-    return ServicesSection(
+    return const ServicesSection(
       isAppointmentActive: true, // Default to "Book a New Look" active
       isRemovalActive: false,
     );
@@ -204,16 +205,16 @@ class NewHomePage extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            children: [
+            children: const [
               _StyleItem(
                   imageUrl: "assets/images/Braids-button.png", name: "Braids"),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
               _StyleItem(
                   imageUrl: "assets/images/Locs-button.png", name: "Locs"),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
               _StyleItem(
                   imageUrl: "assets/images/Twists-button.png", name: "Twists"),
-              const SizedBox(width: 20),
+              SizedBox(width: 20),
               _StyleItem(
                   imageUrl: "assets/images/Lines-button.png", name: "Lines"),
             ],
@@ -387,6 +388,11 @@ class _SalonListItem extends StatelessWidget {
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
                   ),
+                ),
+                const SizedBox(height: 4),
+                RatingStars(
+                  filledStars: 2,
+                  size: 20,
                 ),
               ],
             ),

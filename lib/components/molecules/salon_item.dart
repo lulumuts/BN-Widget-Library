@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../atoms/rating_stars.dart';
 import '../models/service_data.dart';
 
 class SalonItem extends StatelessWidget {
@@ -20,7 +21,7 @@ class SalonItem extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
-          color: Color(0xFFF8F5FF),
+          color: const Color(0xFFF8F5FF),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -92,6 +93,11 @@ class SalonItem extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: const Color(0xFF7F38FF),
               ),
+            ),
+            const SizedBox(height: 4),
+            RatingStars(
+              filledStars: 4,
+              size: 20,
             ),
           ],
         ),

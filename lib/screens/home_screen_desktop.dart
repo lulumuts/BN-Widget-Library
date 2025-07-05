@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../components/components.dart';
-import '../components/models/service_data.dart';
 import '../mobile_preview.dart';
 
 class DesktopHomePage extends StatelessWidget {
@@ -43,7 +42,7 @@ class DesktopHomePage extends StatelessWidget {
     ),
     const StyleData(
       imageUrl: "assets/images/Maintenance-button.png",
-      name: "Maintenance",
+      name: "Natural",
     ),
   ];
 

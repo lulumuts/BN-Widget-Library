@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../components/custom_input_field.dart';
-import '../components/button.dart';
-import '../components/social_login_section.dart';
-import '../components/gradient_background.dart';
+import '../components/atoms/custom_input_field.dart';
+import '../components/atoms/custom_button.dart';
+import '../components/atoms/social_login_section.dart';
+import '../components/atoms/gradient_background.dart';
 import 'login_screen_refactored.dart';
 
 class LoginScreenResponsive extends StatelessWidget {
@@ -55,8 +55,8 @@ class LoginScreenResponsive extends StatelessWidget {
 
   Widget _buildDesktopLayout(BuildContext context, BoxConstraints constraints) {
     // Define the card dimensions while maintaining aspect ratio
-    final cardWidth = 1287.0;
-    final cardHeight = 856.79;
+    const cardWidth = 1287.0;
+    const cardHeight = 856.79;
     var aspectRatio = cardWidth / cardHeight;
 
     // --- NEW: For smaller desktop screens, use a taller aspect ratio. ---
@@ -127,14 +127,14 @@ class LoginScreenResponsive extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
                     width: 1 * scaleFactor, // Scale border width
-                    color: Color(0x0C7F38FF),
+                    color: const Color(0x0C7F38FF),
                   ),
                   borderRadius: BorderRadius.circular(
                       24 * scaleFactor), // Scale border radius
                 ),
                 shadows: [
                   BoxShadow(
-                    color: Color(0x417F38FF),
+                    color: const Color(0x417F38FF),
                     blurRadius: 25 * scaleFactor, // Scale blur radius
                     offset: Offset(0, 4 * scaleFactor), // Scale offset
                     spreadRadius: 13 * scaleFactor, // Scale spread radius
@@ -168,7 +168,7 @@ class LoginScreenResponsive extends StatelessWidget {
                         Positioned(
                           left: imageWidth * 0.05,
                           top: innerConstraints.maxHeight * 0.05,
-                          child: Container(
+                          child: SizedBox(
                             width: imageWidth * 0.15,
                             height: imageWidth * 0.15,
                             child: SvgPicture.asset(

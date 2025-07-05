@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../components/custom_input_field.dart';
-import '../components/button.dart';
-import '../components/social_login_section.dart';
-import '../components/gradient_background.dart';
+import '../components/atoms/custom_input_field.dart';
+import '../components/atoms/custom_button.dart';
+import '../components/atoms/social_login_section.dart';
+import '../components/atoms/gradient_background.dart';
 
 class RegistrationScreenRefactored extends StatefulWidget {
   const RegistrationScreenRefactored({super.key});
@@ -62,7 +62,7 @@ class _RegistrationScreenRefactoredState
                             Positioned(
                               top: 30,
                               child: GradientBackground(
-                                center: Alignment(0.006, 2.1),
+                                center: const Alignment(0.006, 2.1),
                                 child: Container(
                                   width: constraints.maxWidth,
                                   height: 250,
