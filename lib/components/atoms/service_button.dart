@@ -41,6 +41,12 @@ class ServiceButton extends StatelessWidget {
     // Text color should match border color when active
     final textColor = isActive ? Colors.white : const Color(0xFF332749);
 
+    // Get screen width for responsive design
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 850; // Threshold for small screens
+    final isVerySmallScreen =
+        screenWidth <= 564; // Threshold for very small screens
+
     return GestureDetector(
       onTap: onPressed,
       child: Container(
@@ -52,14 +58,20 @@ class ServiceButton extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // Centered text
+            // Centered text with responsive font sizing and icon spacing
             Center(
-              child: Text(
-                text,
-                style: GoogleFonts.leagueSpartan(
-                  color: textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left:
+                        42), // Reduced from 48 to 44 for slightly less right padding
+                child: Text(
+                  text,
+                  style: GoogleFonts.leagueSpartan(
+                    color: textColor,
+                    fontSize:
+                        isVerySmallScreen ? 14 : 16, // Responsive font size
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),

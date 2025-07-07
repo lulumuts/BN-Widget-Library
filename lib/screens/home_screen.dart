@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/molecules/services_section.dart';
 import '../components/atoms/rating_stars.dart';
+import 'dart:async';
 
 // A data model for the popular salon list items. This makes the list data-driven.
 class _SalonInfo {
@@ -63,8 +64,8 @@ class NewHomePage extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: RadialGradient(
-          center: Alignment(0, -1.2), // Adjusted for a top-down effect
-          radius: 1.0,
+          center: Alignment(0, 0.3), // Lowered position
+          radius: 0.6,
           colors: [
             Color(0xFF7F38FF),
             Color(0xFFCBAEFF),
@@ -84,13 +85,11 @@ class NewHomePage extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.only(top: 59),
+            padding: const EdgeInsets.only(top: 30),
             child: Column(
               children: [
-                _buildPromoBanner(),
-                const SizedBox(
-                    height:
-                        21), // Spacing to position the top of the white card
+                _buildPromoCarousel(),
+                const SizedBox(height: 21),
               ],
             ),
           ),
@@ -112,7 +111,7 @@ class NewHomePage extends StatelessWidget {
                 _buildServicesSection(),
                 const SizedBox(height: 32),
                 _buildStylesSection(),
-                const SizedBox(height: 32),
+                const SizedBox(height: 16),
                 _buildPopularSalonsSection(),
               ],
             ),
@@ -122,54 +121,13 @@ class NewHomePage extends StatelessWidget {
     );
   }
 
-  // Builds the promotional banner at the top.
-  Widget _buildPromoBanner() {
+  // Builds the promotional carousel at the top.
+  Widget _buildPromoCarousel() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        decoration: BoxDecoration(
-          color: const Color(0x7FC6B3E8),
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: 'New customers get',
-                style: GoogleFonts.leagueSpartan(
-                  color: const Color(0xFF332749),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextSpan(
-                text: ' \n10% off ',
-                style: GoogleFonts.leagueSpartan(
-                  color: const Color(0xFF332749),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: 'for',
-                style: GoogleFonts.leagueSpartan(
-                  color: const Color(0xFF332749),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              TextSpan(
-                text: ' Knotless Braids!',
-                style: GoogleFonts.leagueSpartan(
-                  color: const Color(0xFF332749),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-        ),
+      child: SizedBox(
+        height: 120, // Reduced height for more compact mobile carousel
+        child: _MobilePromoCarousel(),
       ),
     );
   }
@@ -217,6 +175,13 @@ class NewHomePage extends StatelessWidget {
               SizedBox(width: 20),
               _StyleItem(
                   imageUrl: "assets/images/Lines-button.png", name: "Lines"),
+              SizedBox(width: 20),
+              _StyleItem(
+                  imageUrl: "assets/images/Weaves-button.png", name: "Weaves"),
+              SizedBox(width: 20),
+              _StyleItem(
+                  imageUrl: "assets/images/Natural-button.png",
+                  name: "Natural"),
             ],
           ),
         ),
@@ -242,15 +207,18 @@ class NewHomePage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Container(
+            height: 295,
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             decoration: BoxDecoration(
               color: const Color(0xFFF8F6FC),
               borderRadius: BorderRadius.circular(24),
             ),
-            child: Column(
-              children: _popularSalons
-                  .map((salon) => _SalonListItem(info: salon))
-                  .toList(),
+            child: SingleChildScrollView(
+              child: Column(
+                children: _popularSalons
+                    .map((salon) => _SalonListItem(info: salon))
+                    .toList(),
+              ),
             ),
           )
         ],
@@ -350,8 +318,8 @@ class _SalonListItem extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(40),
-            child: Image.network(
-              info.imageUrl,
+            child: Image.asset(
+              'assets/images/icon-background.png',
               width: 85,
               height: 80,
               fit: BoxFit.cover,
@@ -398,6 +366,197 @@ class _SalonListItem extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// Mobile-optimized promotional carousel
+class _MobilePromoCarousel extends StatefulWidget {
+  const _MobilePromoCarousel({super.key});
+
+  @override
+  State<_MobilePromoCarousel> createState() => _MobilePromoCarouselState();
+}
+
+class _MobilePromoCarouselState extends State<_MobilePromoCarousel> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  Timer? _timer;
+
+  final List<Map<String, dynamic>> _carouselData = [
+    {
+      'image': 'assets/images/Promotion_Feature.jpg',
+      'headline': TextSpan(
+        children: [
+          TextSpan(
+              text: 'Get',
+              style: GoogleFonts.leagueSpartan(
+                  color: const Color(0xFF332749),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700)),
+          TextSpan(
+              text: ' 10% ',
+              style: GoogleFonts.leagueSpartan(
+                  color: const Color(0xFF332749),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700)),
+          TextSpan(
+              text: 'off your next Knotless Braids',
+              style: GoogleFonts.leagueSpartan(
+                  color: const Color(0xFF332749),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700)),
+        ],
+      ),
+      'subtext': 'Book before 12 of June 2025 to\nredeem offer!',
+    },
+    {
+      'image': 'assets/images/Promotion_Offer.png',
+      'headline': TextSpan(
+        children: [
+          TextSpan(
+              text: 'Beyond the Chair Experience',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700)),
+        ],
+      ),
+      'subtext':
+          'Discover our premium styling services\nand expert braiding techniques!',
+    },
+    {
+      'image': 'assets/images/Promotion_profile_notification.png',
+      'headline': TextSpan(
+        children: [
+          TextSpan(
+              text: 'Stay Updated, Get Notified',
+              style: GoogleFonts.leagueSpartan(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700)),
+        ],
+      ),
+      'subtext': 'Never miss out on new styles,\noffers, and appointments!',
+    },
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      int nextPage = (_currentPage + 1) % _carouselData.length;
+      _pageController.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x267F38FF),
+            blurRadius: 23,
+            offset: Offset(0, 4),
+            spreadRadius: 6,
+          )
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageController,
+              itemCount: _carouselData.length,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                final data = _carouselData[index];
+                return Stack(
+                  children: [
+                    // Background image for this slide
+                    Positioned.fill(
+                      child: Image.asset(
+                        data['image'],
+                        fit: BoxFit.cover,
+                        alignment: Alignment.center,
+                      ),
+                    ),
+                    // Content overlay
+                    _MobilePromoContent(
+                      headline: data['headline'],
+                      subtext: data['subtext'],
+                      subtextColor:
+                          index == 0 ? const Color(0xFF332749) : Colors.white,
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MobilePromoContent extends StatelessWidget {
+  final TextSpan headline;
+  final String subtext;
+  final Color subtextColor;
+  const _MobilePromoContent({
+    required this.headline,
+    required this.subtext,
+    this.subtextColor = Colors.white,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              headline,
+              style: GoogleFonts.leagueSpartan(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              subtext,
+              style: GoogleFonts.leagueSpartan(
+                color: subtextColor,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                height: 1.1,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
