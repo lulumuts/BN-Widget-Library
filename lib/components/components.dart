@@ -2,6 +2,7 @@
 export 'atoms/custom_button.dart';
 export 'atoms/atomic_text.dart';
 export 'atoms/service_button.dart';
+export 'atoms/bottom_nav_icon_button.dart';
 
 // Molecules
 export 'molecules/style_item.dart';

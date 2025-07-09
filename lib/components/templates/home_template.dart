@@ -67,64 +67,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
 
   // Builds the top navigation bar
   Widget _buildTopNavigationBar() {
-    return Container(
-      height: 72,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            width: 3,
-            color: Color(0x077F38FF),
-          ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          children: [
-            // Logo placeholder
-            SizedBox(
-              width: 59.80,
-              height: 65.17,
-              // color: const Color(0xFF7F38FF),
-              child: Center(
-                child: SvgPicture.asset(
-                  'assets/images/BN_LOGO.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            const Spacer(),
-            // Navigation items
-            const _NavItem(text: "Home", isSelected: true),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Salons"),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Chat"),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Orders"),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Lulu"),
-            const SizedBox(width: 20),
-            // Profile avatar
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  width: 2,
-                ),
-              ),
-            ),
-            const SizedBox(width: 20),
-            // Close button
-            _CloseButton(),
-          ],
-        ),
-      ),
-    );
+    return SharedNavigationBar();
   }
 
   // Builds the left promotional section
@@ -408,11 +351,11 @@ class _HomeTemplateState extends State<HomeTemplate> {
 }
 
 // Navigation item widget
-class _NavItem extends StatelessWidget {
+class NavItem extends StatelessWidget {
   final String text;
   final bool isSelected;
 
-  const _NavItem({required this.text, this.isSelected = false});
+  const NavItem({required this.text, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -429,7 +372,7 @@ class _NavItem extends StatelessWidget {
 }
 
 // Close button widget
-class _CloseButton extends StatelessWidget {
+class CloseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
@@ -439,6 +382,72 @@ class _CloseButton extends StatelessWidget {
       colorFilter: const ColorFilter.mode(
         Color(0xFF7F38FF),
         BlendMode.srcIn,
+      ),
+    );
+  }
+}
+
+// Shared navigation bar widget
+class SharedNavigationBar extends StatelessWidget {
+  const SharedNavigationBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 72,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            width: 3,
+            color: Color(0x077F38FF),
+          ),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Row(
+          children: [
+            // Logo placeholder
+            SizedBox(
+              width: 59.80,
+              height: 65.17,
+              child: Center(
+                child: SvgPicture.asset(
+                  'assets/images/BN_LOGO.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            const Spacer(),
+            // Navigation items
+            const NavItem(text: "Home", isSelected: true),
+            const SizedBox(width: 40),
+            const NavItem(text: "Salons"),
+            const SizedBox(width: 40),
+            const NavItem(text: "Chat"),
+            const SizedBox(width: 40),
+            const NavItem(text: "Orders"),
+            const SizedBox(width: 40),
+            const NavItem(text: "Lulu"),
+            const SizedBox(width: 20),
+            // Profile avatar
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  width: 2,
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            // Close button
+            CloseButton(),
+          ],
+        ),
       ),
     );
   }

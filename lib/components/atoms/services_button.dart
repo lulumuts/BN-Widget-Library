@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Group289 extends StatelessWidget {
+  const Group289({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: 279.77,
           height: 48.80,
           child: Stack(

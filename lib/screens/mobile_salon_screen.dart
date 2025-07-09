@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/molecules/services_section.dart';
 import '../components/molecules/salon_card.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class MobileSalonScreen extends StatelessWidget {
   final int selectedLeftOption;
@@ -187,16 +188,47 @@ class MobileSalonScreen extends StatelessWidget {
           fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.48),
       unselectedLabelStyle: GoogleFonts.leagueSpartan(
           fontSize: 12, fontWeight: FontWeight.w500, letterSpacing: 0.48),
-      items: const [
+      items: [
         BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline), label: "Profile"),
-        BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
+          icon: SvgPicture.asset(
+            'assets/icons/Profile_Icon.svg',
+            width: 24,
+            height: 24,
+          ),
+          label: "Profile",
+        ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.storefront_outlined), label: "Salons"),
+          icon: SvgPicture.asset(
+            'assets/icons/Home_Icon.svg',
+            width: 24,
+            height: 24,
+          ),
+          label: "Home",
+        ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline), label: "Chat"),
+          icon: SvgPicture.asset(
+            'assets/icons/Salon Icon.svg',
+            width: 24,
+            height: 24,
+          ),
+          label: "Salons",
+        ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.list_alt_outlined), label: "Orders"),
+          icon: SvgPicture.asset(
+            'assets/icons/chat_icon.svg',
+            width: 24,
+            height: 24,
+          ),
+          label: "Chat",
+        ),
+        BottomNavigationBarItem(
+          icon: SvgPicture.asset(
+            'assets/icons/orders_icon.svg',
+            width: 24,
+            height: 24,
+          ),
+          label: "Orders",
+        ),
       ],
     );
   }

@@ -4,11 +4,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 class RatingStars extends StatelessWidget {
   final int filledStars;
   final double size;
+  final Color? starColor;
 
   const RatingStars({
     super.key,
     this.filledStars = 0,
     this.size = 56,
+    this.starColor,
   });
 
   @override
@@ -25,7 +27,10 @@ class RatingStars extends StatelessWidget {
             asset,
             width: size,
             height: size,
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+              starColor ?? const Color(0xFF7F38FF),
+              BlendMode.srcIn,
+            ),
           ),
         );
       }),

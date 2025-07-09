@@ -9,6 +9,7 @@ import 'components/atoms/custom_button.dart';
 import 'components/atoms/atomic_button.dart';
 import 'components/atoms/atomic_text.dart';
 import 'components/atoms/service_button.dart';
+import 'components/atoms/bottom_nav_icon_button.dart';
 import 'components/molecules/style_item.dart';
 import 'components/molecules/salon_item.dart';
 import 'components/molecules/services_section.dart';
@@ -24,12 +25,14 @@ import 'screens/registration_screen_refactored.dart';
 import 'screens/registration_screen_responsive.dart';
 import 'screens/home_screen.dart';
 import 'screens/home_screen_desktop.dart';
+import 'screens/braider_screen_desktop.dart';
 import 'mobile_preview.dart';
 
 import 'components/organisms/home_cards_template.dart';
 import 'screens/salons_screen.dart';
 import 'screens/mobile_salon_screen.dart';
 import 'components/atoms/rating_stars.dart';
+import 'components/organisms/right_container.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -395,6 +398,106 @@ class WidgetbookApp extends StatelessWidget {
                           child: RatingStars(
                             filledStars: int.parse(filledStars),
                             size: 32,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'ProfileIconButton',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default State',
+                      builder: (context) {
+                        final isActive = context.knobs.boolean(
+                          label: 'Is Active',
+                          initialValue: false,
+                        );
+                        return Center(
+                          child: ProfileIconButton(
+                            isActive: isActive,
+                            onTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'HomeIconButton',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default State',
+                      builder: (context) {
+                        final isActive = context.knobs.boolean(
+                          label: 'Is Active',
+                          initialValue: false,
+                        );
+                        return Center(
+                          child: HomeIconButton(
+                            isActive: isActive,
+                            onTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'SalonsIconButton',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default State',
+                      builder: (context) {
+                        final isActive = context.knobs.boolean(
+                          label: 'Is Active',
+                          initialValue: false,
+                        );
+                        return Center(
+                          child: SalonsIconButton(
+                            isActive: isActive,
+                            onTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'ChatIconButton',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default State',
+                      builder: (context) {
+                        final isActive = context.knobs.boolean(
+                          label: 'Is Active',
+                          initialValue: false,
+                        );
+                        return Center(
+                          child: ChatIconButton(
+                            isActive: isActive,
+                            onTap: () {},
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'OrdersIconButton',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default State',
+                      builder: (context) {
+                        final isActive = context.knobs.boolean(
+                          label: 'Is Active',
+                          initialValue: false,
+                        );
+                        return Center(
+                          child: OrdersIconButton(
+                            isActive: isActive,
+                            onTap: () {},
                           ),
                         );
                       },
@@ -804,6 +907,118 @@ class WidgetbookApp extends StatelessWidget {
                     ),
                   ],
                 ),
+                WidgetbookComponent(
+                  name: 'RightContainer',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default',
+                      builder: (context) => RightContainer(
+                        styles: const [
+                          StyleData(
+                            imageUrl: "assets/images/Braids-button.png",
+                            name: "Braids",
+                          ),
+                          StyleData(
+                            imageUrl: "assets/images/Locs-button.png",
+                            name: "Locs",
+                          ),
+                          StyleData(
+                            imageUrl: "assets/images/Twists-button.png",
+                            name: "Twists",
+                          ),
+                          StyleData(
+                            imageUrl: "assets/images/Lines-button.png",
+                            name: "Lines",
+                          ),
+                          StyleData(
+                            imageUrl: "assets/images/Weaves-button.png",
+                            name: "Weaves",
+                          ),
+                          StyleData(
+                            imageUrl: "assets/images/Maintenance-button.png",
+                            name: "Natural",
+                          ),
+                        ],
+                        salons: const [
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Doris' Salon - Stall 222",
+                            style: "Bob Braids",
+                            price: "1500 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Linet's Salon - Stall 10",
+                            style: "Twist Braids",
+                            price: "2300 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Maggy's Salon - Stall 321",
+                            style: "Box Braids",
+                            price: "2000 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Connie's Salon - Stall 55",
+                            style: "Bob Braids",
+                            price: "1500 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Sarah's Salon - Stall 123",
+                            style: "Cornrow Braids",
+                            price: "1800 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Grace's Salon - Stall 456",
+                            style: "Fulani Braids",
+                            price: "2500 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Mary's Salon - Stall 789",
+                            style: "Ghana Braids",
+                            price: "2200 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Jane's Salon - Stall 101",
+                            style: "Senegalese Twists",
+                            price: "2800 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Ann's Salon - Stall 202",
+                            style: "Micro Braids",
+                            price: "3200 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Rose's Salon - Stall 303",
+                            style: "Knotless Braids",
+                            price: "3500 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Faith's Salon - Stall 404",
+                            style: "Passion Twists",
+                            price: "2400 KES",
+                          ),
+                          SalonData(
+                            imageUrl: "assets/images/icon-background.png",
+                            name: "Hope's Salon - Stall 505",
+                            style: "Box Braids",
+                            price: "2100 KES",
+                          ),
+                        ],
+                        selectedStyleIndex: null,
+                        onStyleSelected: (_) {},
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             WidgetbookFolder(
@@ -927,16 +1142,89 @@ class WidgetbookApp extends StatelessWidget {
                             price: "2100 KES",
                           ),
                         ],
-                        onBookAppointment: () {},
                       ),
                     ),
                   ],
                 ),
                 WidgetbookComponent(
-                  name: 'SalonsTemplate',
+                  name: 'BraiderTemplate',
                   useCases: [
                     WidgetbookUseCase(
-                      name: 'Desktop Layout with Scrollable Cards',
+                      name: 'Default',
+                      builder: (context) => const BraiderTemplate(),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'LoginTemplate',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Login',
+                      builder: (context) => const LoginScreenResponsive(),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'RegistrationTemplate',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Registration',
+                      builder: (context) =>
+                          const RegistrationScreenResponsive(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            WidgetbookFolder(
+              name: 'Screens',
+              children: [
+                WidgetbookComponent(
+                  name: 'LoginScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Mobile Login',
+                      builder: (context) => const LoginScreenRefactored(),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Desktop Login',
+                      builder: (context) => const LoginScreenResponsive(),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'RegistrationScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Mobile Registration',
+                      builder: (context) =>
+                          const RegistrationScreenRefactored(),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Desktop Registration',
+                      builder: (context) =>
+                          const RegistrationScreenResponsive(),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'HomeScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Home Screen',
+                      builder: (context) => const DesktopHomePage(),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Mobile Home Screen',
+                      builder: (context) => const NewHomePage(),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'SalonsScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Salons Screen',
                       builder: (context) {
                         final leftOptions = [
                           'Braids',
@@ -949,107 +1237,62 @@ class WidgetbookApp extends StatelessWidget {
                         final leftOption = context.knobs.list(
                           label: 'Left Container Option',
                           options: leftOptions,
+                          initialOption: leftOptions[0],
                         );
-                        final selectedIndex =
-                            leftOptions.indexOf(leftOption ?? leftOptions[0]);
-                        return SalonsTemplate(
-                            selectedLeftOption: selectedIndex);
+                        final selectedIndex = leftOptions.indexOf(leftOption);
+                        // Ensure we have a valid index
+                        final safeIndex =
+                            selectedIndex >= 0 ? selectedIndex : 0;
+                        return SalonsTemplate(selectedLeftOption: safeIndex);
+                      },
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Mobile Salons Screen',
+                      builder: (context) {
+                        final leftOptions = [
+                          'Braids',
+                          'Lines',
+                          'Twists',
+                          'Locs',
+                          'Weaves',
+                          'Natural',
+                        ];
+                        final leftOption = context.knobs.list(
+                          label: 'Left Container Option',
+                          options: leftOptions,
+                          initialOption: leftOptions[0],
+                        );
+                        final selectedIndex = leftOptions.indexOf(leftOption);
+                        // Ensure we have a valid index
+                        final safeIndex =
+                            selectedIndex >= 0 ? selectedIndex : 0;
+                        return MobileSalonScreen(selectedLeftOption: safeIndex);
                       },
                     ),
                   ],
                 ),
-              ],
-            ),
-          ],
-        ),
-        WidgetbookFolder(
-          name: 'Screens',
-          children: [
-            WidgetbookComponent(
-              name: 'LoginScreen',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Mobile Login',
-                  builder: (context) => const LoginScreenRefactored(),
-                ),
-                WidgetbookUseCase(
-                  name: 'Desktop Login',
-                  builder: (context) => const LoginScreenResponsive(),
-                ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'RegistrationScreen',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Mobile Registration',
-                  builder: (context) => const RegistrationScreenRefactored(),
-                ),
-                WidgetbookUseCase(
-                  name: 'Desktop Registration',
-                  builder: (context) => const RegistrationScreenResponsive(),
-                ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'HomeScreen',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Desktop Home Screen',
-                  builder: (context) => const DesktopHomePage(),
-                ),
-                WidgetbookUseCase(
-                  name: 'Mobile Home Screen',
-                  builder: (context) => const NewHomePage(),
-                ),
-              ],
-            ),
-            WidgetbookComponent(
-              name: 'SalonsScreen',
-              useCases: [
-                WidgetbookUseCase(
-                  name: 'Desktop Salons Screen',
-                  builder: (context) {
-                    final leftOptions = [
-                      'Braids',
-                      'Lines',
-                      'Twists',
-                      'Locs',
-                      'Weaves',
-                      'Natural',
-                    ];
-                    final leftOption = context.knobs.list(
-                      label: 'Left Container Option',
-                      options: leftOptions,
-                      initialOption: leftOptions[0],
-                    );
-                    final selectedIndex = leftOptions.indexOf(leftOption);
-                    // Ensure we have a valid index
-                    final safeIndex = selectedIndex >= 0 ? selectedIndex : 0;
-                    return SalonsTemplate(selectedLeftOption: safeIndex);
-                  },
-                ),
-                WidgetbookUseCase(
-                  name: 'Mobile Salons Screen',
-                  builder: (context) {
-                    final leftOptions = [
-                      'Braids',
-                      'Lines',
-                      'Twists',
-                      'Locs',
-                      'Weaves',
-                      'Natural',
-                    ];
-                    final leftOption = context.knobs.list(
-                      label: 'Left Container Option',
-                      options: leftOptions,
-                      initialOption: leftOptions[0],
-                    );
-                    final selectedIndex = leftOptions.indexOf(leftOption);
-                    // Ensure we have a valid index
-                    final safeIndex = selectedIndex >= 0 ? selectedIndex : 0;
-                    return MobileSalonScreen(selectedLeftOption: safeIndex);
-                  },
+                WidgetbookComponent(
+                  name: 'BraiderScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop',
+                      builder: (context) {
+                        final viewType = context.knobs.list(
+                          label: 'Right Content',
+                          options: [
+                            'Styles & Salons',
+                            'Detailed Style View',
+                          ],
+                          initialOption: 'Styles & Salons',
+                        );
+                        return BraiderTemplate(rightContentOption: viewType);
+                      },
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Mobile',
+                      builder: (context) => const MobileBraiderPreview(),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -1181,6 +1424,99 @@ class ResponsiveHomePage extends StatelessWidget {
           return const DesktopHomePage();
         }
       },
+    );
+  }
+}
+
+class _DesktopSalonListItem extends StatelessWidget {
+  final SalonData salon;
+
+  const _DesktopSalonListItem({required this.salon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFF8F5FF),
+              border: Border.all(
+                color: const Color(0xFFE0D5FF),
+                width: 2,
+              ),
+            ),
+            child: ClipOval(
+              child: Image.asset(
+                salon.imageUrl,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 80,
+                    height: 80,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFF8F5FF),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.store,
+                      color: Color(0xFF7F38FF),
+                      size: 24,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 4),
+                Text(
+                  salon.name,
+                  style: GoogleFonts.leagueSpartan(
+                    color: const Color(0xFF332749),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  salon.style,
+                  style: GoogleFonts.leagueSpartan(
+                    color: const Color(0xFF332749),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  salon.price,
+                  style: GoogleFonts.leagueSpartan(
+                    color: const Color(0xFF332749),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                RatingStars(
+                  filledStars: 5,
+                  size: 20,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
