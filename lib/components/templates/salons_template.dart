@@ -46,7 +46,11 @@ class _SalonsTemplateState extends State<SalonsTemplate> {
       'title': 'Weaves',
     },
     {
-      'image': 'assets/images/MaintenanceBackground.png',
+      'image': 'assets/images/NaturalBackground.png',
+      'title': 'Natural',
+    },
+    {
+      'image': 'assets/images/Onboarding_Presalon_Screen.png',
       'title': 'Natural',
     },
   ];

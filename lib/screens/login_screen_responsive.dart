@@ -55,8 +55,8 @@ class LoginScreenResponsive extends StatelessWidget {
 
   Widget _buildDesktopLayout(BuildContext context, BoxConstraints constraints) {
     // Define the card dimensions while maintaining aspect ratio
-    const cardWidth = 1287.0;
-    const cardHeight = 856.79;
+    const cardWidth = 1487.0;
+    const cardHeight = 1000.0;
     var aspectRatio = cardWidth / cardHeight;
 
     // --- NEW: For smaller desktop screens, use a taller aspect ratio. ---
@@ -71,7 +71,7 @@ class LoginScreenResponsive extends StatelessWidget {
     // --- NEW LOGIC FOR LARGE SCREENS ---
     // If the screen is very tall, make the card larger to fill more space.
     if (constraints.maxHeight > 1100) {
-      actualHeight = constraints.maxHeight * 0.8; // Use 80% of screen height
+      actualHeight = constraints.maxHeight * 0.9; // Use 90% of screen height
       actualWidth = actualHeight * aspectRatio;
     }
 
@@ -107,16 +107,16 @@ class LoginScreenResponsive extends StatelessWidget {
           builder: (context, innerConstraints) {
             // Calculate responsive widths
             double containerWidth = innerConstraints.maxWidth;
-            double imageWidth = containerWidth * 0.4;
-            double formWidth = containerWidth * 0.6;
+            double maxFormWidth = 600;
+            double minImageWidth = 600;
 
-            // Adjust proportions for different screen sizes
-            if (containerWidth > 1000) {
-              imageWidth = containerWidth * 0.5;
-              formWidth = containerWidth * 0.5;
-            } else if (containerWidth < 600) {
-              imageWidth = containerWidth * 0.35;
-              formWidth = containerWidth * 0.65;
+            double formWidth = containerWidth > (maxFormWidth + minImageWidth)
+                ? maxFormWidth
+                : containerWidth * 0.6;
+            double imageWidth = containerWidth * 0.5;
+            if (imageWidth < minImageWidth) {
+              imageWidth = minImageWidth;
+              formWidth = containerWidth - imageWidth;
             }
 
             return Container(
@@ -205,69 +205,106 @@ class LoginScreenResponsive extends StatelessWidget {
                     width: formWidth * 0.8,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Hello!',
-                          style: GoogleFonts.leagueSpartan(
-                            color: const Color(0xFF7F38FF),
-                            fontSize: titleSize, // Use calculated size
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        // const SizedBox(height: 1),
-                        Text(
-                          'Please Sign in below',
-                          style: GoogleFonts.leagueSpartan(
-                            color: const Color(0xFF7F38FF),
-                            fontSize: subtitleSize, // Use calculated size
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(height: constraints.maxWidth > 600 ? 70 : 65),
-                        CustomInputField(
-                          label: 'Email Address',
-                          hintText: 'Enter your email',
-                          controller: TextEditingController(),
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        const SizedBox(height: 10),
-                        CustomInputField(
-                          label: 'Password',
-                          hintText: 'Enter your password',
-                          isPassword: true,
-                          controller: TextEditingController(),
-                        ),
-                        SizedBox(height: innerConstraints.maxHeight * 0.03),
-                        SizedBox(
-                          width: double.infinity,
-                          child: CustomButton(
-                            text: 'Login',
-                            onPressed: () {},
-                            isPrimary: true,
-                          ),
-                        ),
-                        SizedBox(height: innerConstraints.maxHeight * 0.02),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Forgot my password',
-                            style: GoogleFonts.leagueSpartan(
-                              color: const Color(0xFF332749),
-                              fontSize: bodySize, // Use calculated size
-                              fontWeight: FontWeight.w500,
+                        // Top section: form fields, validation, button, etc.
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Hello!',
+                              style: GoogleFonts.leagueSpartan(
+                                color: const Color(0xFF7F38FF),
+                                fontSize: titleSize, // Use calculated size
+                                fontWeight: FontWeight.w700,
+                                height: 1.25,
+                              ),
                             ),
-                          ),
+                            Text(
+                              'Please Sign in below',
+                              style: GoogleFonts.leagueSpartan(
+                                color: const Color(0xFF7F38FF),
+                                fontSize: subtitleSize, // Use calculated size
+                                fontWeight: FontWeight.w500,
+                                height: 0.9,
+                              ),
+                            ),
+                            SizedBox(
+                                height: constraints.maxWidth > 600 ? 100 : 95),
+                            CustomInputField(
+                              label: 'Email Address',
+                              hintText: 'Enter your email',
+                              controller: TextEditingController(),
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '', // Placeholder for error message
+                              style: GoogleFonts.leagueSpartan(
+                                color: Colors.transparent,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            CustomInputField(
+                              label: 'Password',
+                              hintText: 'Enter your password',
+                              isPassword: true,
+                              controller: TextEditingController(),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '', // Placeholder for error message
+                              style: GoogleFonts.leagueSpartan(
+                                color: Colors.transparent,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              width: double.infinity,
+                              child: CustomButton(
+                                text: 'Login',
+                                onPressed: () {},
+                                isPrimary: true,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                'Forgot my password',
+                                style: GoogleFonts.leagueSpartan(
+                                  color: const Color(0xFF332749),
+                                  fontSize: 15, // Use calculated size
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: innerConstraints.maxHeight * 0.03),
-                        // This inner Column holds the bottom part of the form
+                        // Bottom section: social login and sign up text
                         Column(
                           children: [
+                            const SizedBox(height: 120),
+                            Text(
+                              'Or sign up with',
+                              style: GoogleFonts.leagueSpartan(
+                                color: const Color(0xFF3A0F88),
+                                fontSize: bodySize,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
                             Center(
-                                child: SocialLoginSection(
-                              iconSize: 30.0,
-                              fontSize: socialTextSize,
-                            )),
-                            const SizedBox(height: 30),
+                              child: SocialLoginSection(
+                                iconSize: 30.0,
+                                fontSize: socialTextSize,
+                              ),
+                            ),
+                            const SizedBox(height: 14),
                             Center(
                               child: GestureDetector(
                                 onTap: () {},
@@ -277,7 +314,7 @@ class LoginScreenResponsive extends StatelessWidget {
                                       TextSpan(
                                         text: "Don't have an account? ",
                                         style: GoogleFonts.leagueSpartan(
-                                          color: Colors.black,
+                                          color: const Color(0xFF3A0F88),
                                           fontSize:
                                               bodySize, // Use calculated size
                                           fontWeight: FontWeight.w500,
@@ -286,7 +323,7 @@ class LoginScreenResponsive extends StatelessWidget {
                                       TextSpan(
                                         text: 'Sign Up',
                                         style: GoogleFonts.leagueSpartan(
-                                          color: const Color(0xFF3A0F88),
+                                          color: const Color(0xFF7F38FF),
                                           fontSize:
                                               bodySize, // Use calculated size
                                           fontWeight: FontWeight.w500,

@@ -8,6 +8,7 @@ class SocialLoginSection extends StatelessWidget {
   final VoidCallback? onAppleTap;
   final double iconSize;
   final double? fontSize;
+  final String? headerText;
 
   const SocialLoginSection({
     super.key,
@@ -16,26 +17,26 @@ class SocialLoginSection extends StatelessWidget {
     this.onAppleTap,
     this.iconSize = 30.0,
     this.fontSize,
+    this.headerText,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 50),
-        // "Or Log In with" text
-        Text(
-          'Or \nLog In with',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.leagueSpartan(
-            color: Colors.black,
-            fontSize: fontSize ?? 18,
-            fontWeight: FontWeight.w500,
-            height: 1.6,
+        if (headerText != null && headerText!.isNotEmpty) ...[
+          Text(
+            headerText!,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.leagueSpartan(
+              color: Colors.black,
+              fontSize: fontSize ?? 18,
+              fontWeight: FontWeight.w500,
+              height: 1.6,
+            ),
           ),
-        ),
-        const SizedBox(height: 20),
-
+          const SizedBox(height: 8),
+        ],
         // Social media icons
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

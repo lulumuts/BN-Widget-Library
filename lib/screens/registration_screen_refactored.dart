@@ -18,16 +18,15 @@ class _RegistrationScreenRefactoredState
     extends State<RegistrationScreenRefactored> {
   final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   @override
   void dispose() {
     _fullNameController.dispose();
     _emailController.dispose();
+    _phoneController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -74,7 +73,7 @@ class _RegistrationScreenRefactoredState
                             // The logo sits on top of the gradient.
                             Positioned.fill(
                               child: Image.asset(
-                                "assets/images/Registration_bg.png",
+                                "assets/images/icon-background.png",
                                 fit: BoxFit.none,
                                 height: constraints.maxHeight * 0.01,
                               ),
@@ -124,36 +123,141 @@ class _RegistrationScreenRefactoredState
                                         fontWeight: FontWeight.w500)),
                                 const SizedBox(height: 30),
                                 CustomInputField(
-                                    label: 'Full Name',
-                                    hintText: 'Enter your full name',
-                                    controller: _fullNameController,
-                                    keyboardType: TextInputType.name),
-                                const SizedBox(height: 10),
+                                  label: 'Full Name',
+                                  hintText: 'Enter your full name',
+                                  controller: _fullNameController,
+                                  keyboardType: TextInputType.name,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'This is not an email',
+                                  style: GoogleFonts.leagueSpartan(
+                                    color: const Color(0xFF666666),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 CustomInputField(
-                                    label: 'Email Address',
-                                    hintText: 'Enter your email',
-                                    controller: _emailController,
-                                    keyboardType: TextInputType.emailAddress),
-                                const SizedBox(height: 10),
+                                  label: 'Email',
+                                  hintText: 'Enter your email',
+                                  controller: _emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'This is not an email',
+                                  style: GoogleFonts.leagueSpartan(
+                                    color: const Color(0xFF666666),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 CustomInputField(
-                                    label: 'Password',
-                                    hintText: 'Enter your password',
-                                    isPassword: true,
-                                    controller: _passwordController),
-                                const SizedBox(height: 10),
+                                  label: 'Phone Number',
+                                  hintText: 'Enter your phone number',
+                                  controller: _phoneController,
+                                  keyboardType: TextInputType.phone,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'This is not an email',
+                                  style: GoogleFonts.leagueSpartan(
+                                    color: const Color(0xFF666666),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 CustomInputField(
-                                    label: 'Confirm Password',
-                                    hintText: 'Confirm your password',
-                                    isPassword: true,
-                                    controller: _confirmPasswordController),
-                                const SizedBox(height: 30),
+                                  label: 'Password',
+                                  hintText: 'Enter your password',
+                                  isPassword: true,
+                                  controller: _passwordController,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'This is not an email',
+                                  style: GoogleFonts.leagueSpartan(
+                                    color: const Color(0xFF666666),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
                                 SizedBox(
                                     width: double.infinity,
                                     child: CustomButton(
                                         text: 'Sign Up',
                                         onPressed: _handleSignUp,
                                         isPrimary: true)),
-                                const SizedBox(height: 16),
+                                const SizedBox(height: 8),
+                                Center(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Checkbox(
+                                        value:
+                                            false, // You can add state management for this
+                                        onChanged: (value) {
+                                          // Handle checkbox state change
+                                        },
+                                        activeColor: const Color(0xFF332749),
+                                        side: const BorderSide(
+                                          color: Color(0xFF332749),
+                                          width: 2,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: RichText(
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: 'I agree to the ',
+                                                style:
+                                                    GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF332749),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: 'Terms and Conditions',
+                                                style:
+                                                    GoogleFonts.leagueSpartan(
+                                                  color:
+                                                      const Color(0xFF7F38FF),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                SocialLoginSection(
+                                  headerText: 'or sign up with',
+                                  fontSize: 14,
+                                  iconSize: 24.0,
+                                  onGoogleTap: () {
+                                    // Handle Google sign up
+                                  },
+                                  onAppleTap: () {
+                                    // Handle Apple sign up
+                                  },
+                                  onFacebookTap: () {
+                                    // Handle Facebook sign up
+                                  },
+                                ),
+                                const SizedBox(height: 4),
                                 GestureDetector(
                                   onTap: _handleSignIn,
                                   child: Center(
@@ -161,21 +265,23 @@ class _RegistrationScreenRefactoredState
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
-                                              text: "Already have an account? ",
-                                              style: GoogleFonts.leagueSpartan(
-                                                  color:
-                                                      const Color(0xFF332749),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600)),
+                                            text: "Already have an account? ",
+                                            style: GoogleFonts.leagueSpartan(
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
                                           TextSpan(
-                                              text: 'Sign In',
-                                              style: GoogleFonts.leagueSpartan(
-                                                  color:
-                                                      const Color(0xFF332749),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
-                                                  decoration: TextDecoration
-                                                      .underline)),
+                                            text: 'Sign In',
+                                            style: GoogleFonts.leagueSpartan(
+                                              color: const Color(0xFF3A0F88),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

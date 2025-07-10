@@ -47,6 +47,7 @@ class SalonCard extends StatelessWidget {
               child: RatingStars(
                 filledStars: 3,
                 size: 20,
+                starColor: Colors.white,
               ),
             ),
             // Content

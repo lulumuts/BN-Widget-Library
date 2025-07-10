@@ -29,7 +29,7 @@ class CustomInputField extends StatelessWidget {
           label,
           style: GoogleFonts.leagueSpartan(
             color: const Color(0xBF481F94),
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
             height: 1.0,
           ),
@@ -57,7 +57,7 @@ class CustomInputField extends StatelessWidget {
               hintText: hintText,
               hintStyle: GoogleFonts.leagueSpartan(
                 color: const Color(0xBF481F94),
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
             ),

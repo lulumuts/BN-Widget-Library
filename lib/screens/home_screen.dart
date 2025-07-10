@@ -208,7 +208,7 @@ class NewHomePage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Container(
-            height: 295,
+            height: 416,
             padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
             decoration: BoxDecoration(
               color: const Color(0xFFF8F6FC),

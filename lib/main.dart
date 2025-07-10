@@ -26,6 +26,8 @@ import 'screens/registration_screen_responsive.dart';
 import 'screens/home_screen.dart';
 import 'screens/home_screen_desktop.dart';
 import 'screens/braider_screen_desktop.dart';
+import 'screens/onboarding_screen_desktop.dart';
+import 'screens/onboarding_screen_mobile.dart';
 import 'mobile_preview.dart';
 
 import 'components/organisms/home_cards_template.dart';
@@ -354,16 +356,21 @@ class WidgetbookApp extends StatelessWidget {
                   name: 'GradientBackground',
                   useCases: [
                     WidgetbookUseCase(
-                      name: 'Gradient Background',
+                      name: 'Centered Gradient Background',
                       builder: (context) => const SizedBox(
-                        width: 200,
-                        height: 200,
+                        width: 600,
+                        height: 400,
                         child: GradientBackground(
+                          center: Alignment(0.0, 0.0),
+                          radius: 1.0,
                           child: Center(
                             child: Text(
-                              'Gradient Background',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+                              'Centered Gradient Background',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
@@ -1156,6 +1163,57 @@ class WidgetbookApp extends StatelessWidget {
                   ],
                 ),
                 WidgetbookComponent(
+                  name: 'SalonsTemplate',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Salons Template',
+                      builder: (context) {
+                        final leftOptions = [
+                          'Braids',
+                          'Lines',
+                          'Twists',
+                          'Locs',
+                          'Weaves',
+                          'Natural',
+                        ];
+                        final leftOption = context.knobs.list(
+                          label: 'Left Container Option',
+                          options: leftOptions,
+                          initialOption: leftOptions[0],
+                        );
+                        final selectedIndex = leftOptions.indexOf(leftOption);
+                        // Ensure we have a valid index
+                        final safeIndex =
+                            selectedIndex >= 0 ? selectedIndex : 0;
+                        return SalonsTemplate(selectedLeftOption: safeIndex);
+                      },
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Mobile Salons Template',
+                      builder: (context) {
+                        final leftOptions = [
+                          'Braids',
+                          'Lines',
+                          'Twists',
+                          'Locs',
+                          'Weaves',
+                          'Natural',
+                        ];
+                        final leftOption = context.knobs.list(
+                          label: 'Left Container Option',
+                          options: leftOptions,
+                          initialOption: leftOptions[0],
+                        );
+                        final selectedIndex = leftOptions.indexOf(leftOption);
+                        // Ensure we have a valid index
+                        final safeIndex =
+                            selectedIndex >= 0 ? selectedIndex : 0;
+                        return MobileSalonScreen(selectedLeftOption: safeIndex);
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
                   name: 'LoginTemplate',
                   useCases: [
                     WidgetbookUseCase(
@@ -1291,6 +1349,19 @@ class WidgetbookApp extends StatelessWidget {
                     WidgetbookUseCase(
                       name: 'Mobile',
                       builder: (context) => const MobileBraiderPreview(),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'OnboardingScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Onboarding',
+                      builder: (context) => const OnboardingScreenDesktop(),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Mobile Onboarding',
+                      builder: (context) => const OnboardingScreenMobile(),
                     ),
                   ],
                 ),
