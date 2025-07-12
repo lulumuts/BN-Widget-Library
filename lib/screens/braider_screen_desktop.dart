@@ -311,7 +311,7 @@ class _BraiderTemplateState extends State<BraiderTemplate> {
               ),
               // Card and image (centered content)
               Center(
-                child: Container(
+                child: SizedBox(
                   width: containerWidth,
                   height: 705.06,
                   child: Stack(
@@ -1629,7 +1629,7 @@ class _MobileBraiderPreviewState extends State<MobileBraiderPreview> {
 }
 
 class _HoverFillButton extends StatefulWidget {
-  const _HoverFillButton({Key? key}) : super(key: key);
+  const _HoverFillButton({super.key});
 
   @override
   State<_HoverFillButton> createState() => _HoverFillButtonState();
@@ -1820,7 +1820,7 @@ class DetailedStyleView extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Style images grid
-            Container(
+            SizedBox(
               height: 120,
               child: Row(
                 children: [

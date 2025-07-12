@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../atoms/service_button.dart';
-import '../atoms/atomic_text.dart';
 
 class ServicesSection extends StatefulWidget {
   final VoidCallback? onBookAppointment;

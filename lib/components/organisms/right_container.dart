@@ -12,12 +12,12 @@ class RightContainer extends StatelessWidget {
   final ValueChanged<int>? onStyleSelected;
 
   const RightContainer({
-    Key? key,
+    super.key,
     required this.styles,
     required this.salons,
     this.selectedStyleIndex,
     this.onStyleSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

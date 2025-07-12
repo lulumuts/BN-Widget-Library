@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'onboarding_screen_mobile.dart';
-import '../components/organisms/onboarding_questions.dart';
+import '../components/organisms/location.dart';
 
-class OnboardingScreenDesktop extends StatelessWidget {
+enum LocationView { view1, view2, view3 }
+
+class LocationScreenDesktop extends StatelessWidget {
   final OnboardingView view;
-  const OnboardingScreenDesktop({super.key, this.view = OnboardingView.view1});
+  const LocationScreenDesktop({super.key, this.view = OnboardingView.view1});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +16,7 @@ class OnboardingScreenDesktop extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          'Desktop Onboarding Screen',
+          'Desktop Location Screen',
           style: GoogleFonts.leagueSpartan(
             color: const Color(0xFF332749),
             fontWeight: FontWeight.w600,
@@ -35,59 +37,37 @@ class OnboardingScreenDesktop extends StatelessWidget {
     );
   }
 
-  // Helper function for consistent font scaling
   double _calculateFontSize(
       BoxConstraints constraints, double minSize, double maxSize) {
-    const minWidth = 800; // The breakpoint where desktop view starts
-    const maxWidth = 1300; // The width at which fonts should be their max size
-
-    // Ensure we don't go below the min or above the max
+    const minWidth = 800;
+    const maxWidth = 1300;
     final currentWidth = constraints.maxWidth.clamp(minWidth, maxWidth);
-
-    // Calculate the interpolation factor (0.0 to 1.0)
     final t = (currentWidth - minWidth) / (maxWidth - minWidth);
-
-    // Linearly interpolate between the min and max font sizes
     return minSize + t * (maxSize - minSize);
   }
 
   Widget _buildDesktopLayout(BuildContext context, BoxConstraints constraints) {
-    // Define the card dimensions while maintaining aspect ratio
     const cardWidth = 1287.0;
     const cardHeight = 856.79;
     var aspectRatio = cardWidth / cardHeight;
-
-    // For smaller desktop screens, use a taller aspect ratio
     if (constraints.maxWidth < 1300) {
-      aspectRatio = 1.35; // A smaller aspect ratio = a taller card
+      aspectRatio = 1.35;
     }
-
-    // Calculate the actual dimensions based on available space
     double actualWidth = cardWidth;
     double actualHeight = cardWidth / aspectRatio;
-
-    // If the screen is very tall, make the card larger to fill more space
     if (constraints.maxHeight > 1100) {
-      actualHeight = constraints.maxHeight * 0.8; // Use 80% of screen height
+      actualHeight = constraints.maxHeight * 0.8;
       actualWidth = actualHeight * aspectRatio;
     }
-
-    // If the screen is smaller than the desired width, scale down proportionally
     if (constraints.maxWidth < actualWidth + 40) {
       actualWidth = constraints.maxWidth - 40;
       actualHeight = actualHeight * aspectRatio;
     }
-
-    // If the screen is smaller than the desired height, scale down proportionally
     if (constraints.maxHeight < actualHeight + 40) {
       actualHeight = constraints.maxHeight - 40;
       actualWidth = actualHeight * aspectRatio;
     }
-
-    // Scale factor for responsive sizing
     final scaleFactor = actualWidth / cardWidth;
-
-    // Calculate font sizes using our consistent function
     final titleSize = _calculateFontSize(constraints, 32, 40);
     final subtitleSize = _calculateFontSize(constraints, 18, 24);
     final bodySize = _calculateFontSize(constraints, 16, 18);
@@ -97,15 +77,12 @@ class OnboardingScreenDesktop extends StatelessWidget {
       child: Container(
         width: actualWidth,
         height: actualHeight,
-        padding: EdgeInsets.all(60.0 * scaleFactor), // Scale padding
+        padding: EdgeInsets.all(60.0 * scaleFactor),
         child: LayoutBuilder(
           builder: (context, innerConstraints) {
-            // Calculate responsive widths
             double containerWidth = innerConstraints.maxWidth;
             double imageWidth = containerWidth * 0.4;
             double formWidth = containerWidth * 0.6;
-
-            // Adjust proportions for different screen sizes
             if (containerWidth > 1000) {
               imageWidth = containerWidth * 0.5;
               formWidth = containerWidth * 0.5;
@@ -113,7 +90,6 @@ class OnboardingScreenDesktop extends StatelessWidget {
               imageWidth = containerWidth * 0.35;
               formWidth = containerWidth * 0.65;
             }
-
             return Container(
               width: containerWidth,
               height: innerConstraints.maxHeight,
@@ -121,24 +97,22 @@ class OnboardingScreenDesktop extends StatelessWidget {
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
-                    width: 1 * scaleFactor, // Scale border width
+                    width: 1 * scaleFactor,
                     color: const Color(0x0C7F38FF),
                   ),
-                  borderRadius: BorderRadius.circular(
-                      24 * scaleFactor), // Scale border radius
+                  borderRadius: BorderRadius.circular(24 * scaleFactor),
                 ),
                 shadows: [
                   BoxShadow(
                     color: const Color(0x417F38FF),
-                    blurRadius: 25 * scaleFactor, // Scale blur radius
-                    offset: Offset(0, 4 * scaleFactor), // Scale offset
-                    spreadRadius: 13 * scaleFactor, // Scale spread radius
+                    blurRadius: 25 * scaleFactor,
+                    offset: Offset(0, 4 * scaleFactor),
+                    spreadRadius: 13 * scaleFactor,
                   )
                 ],
               ),
               child: Stack(
                 children: [
-                  // Left side image container
                   Container(
                     width: imageWidth,
                     height: innerConstraints.maxHeight,
@@ -146,20 +120,17 @@ class OnboardingScreenDesktop extends StatelessWidget {
                     decoration: ShapeDecoration(
                       color: const Color(0xBFE9DDFF),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            24 * scaleFactor), // Scale border radius
+                        borderRadius: BorderRadius.circular(24 * scaleFactor),
                       ),
                     ),
                     child: Stack(
                       children: [
-                        // Background image
                         Positioned.fill(
                           child: Image.asset(
                             "assets/images/Onboarding.png",
                             fit: BoxFit.cover,
                           ),
                         ),
-                        // Logo
                         Positioned(
                           left: imageWidth * 0.05,
                           top: innerConstraints.maxHeight * 0.05,
@@ -175,14 +146,13 @@ class OnboardingScreenDesktop extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Right side white container
                   Positioned(
                     right: 0,
                     top: 0,
                     child: SizedBox(
                       width: formWidth,
                       height: innerConstraints.maxHeight,
-                      child: OnboardingQuestions(view: view),
+                      child: LocationScreen(view: view),
                     ),
                   ),
                 ],

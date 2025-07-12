@@ -405,7 +405,7 @@ class _SalonListItem extends StatelessWidget {
 
 // Mobile-optimized promotional carousel
 class _MobilePromoCarousel extends StatefulWidget {
-  const _MobilePromoCarousel({super.key});
+  const _MobilePromoCarousel();
 
   @override
   State<_MobilePromoCarousel> createState() => _MobilePromoCarouselState();

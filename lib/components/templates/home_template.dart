@@ -355,7 +355,7 @@ class NavItem extends StatelessWidget {
   final String text;
   final bool isSelected;
 
-  const NavItem({required this.text, this.isSelected = false});
+  const NavItem({super.key, required this.text, this.isSelected = false});
 
   @override
   Widget build(BuildContext context) {
@@ -373,6 +373,8 @@ class NavItem extends StatelessWidget {
 
 // Close button widget
 class CloseButton extends StatelessWidget {
+  const CloseButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
@@ -548,7 +550,7 @@ class _DesktopSalonListItem extends StatelessWidget {
 }
 
 class _PromoCarousel extends StatefulWidget {
-  const _PromoCarousel({super.key});
+  const _PromoCarousel();
 
   @override
   State<_PromoCarousel> createState() => _PromoCarouselState();

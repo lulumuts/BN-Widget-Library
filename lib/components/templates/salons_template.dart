@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../atoms/custom_button.dart';
-import '../atoms/atomic_text.dart';
-import '../atoms/service_button.dart';
-import '../organisms/styles_grid.dart';
-import '../organisms/home_cards_template.dart';
-import '../molecules/salon_item.dart';
-import '../models/service_data.dart';
 import '../molecules/services_section.dart';
 import '../../screens/mobile_salon_screen.dart';
-import 'dart:async';
 import '../molecules/salon_card.dart';
 
 class SalonsTemplate extends StatefulWidget {

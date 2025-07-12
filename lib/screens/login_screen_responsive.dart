@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../components/atoms/custom_input_field.dart';
 import '../components/atoms/custom_button.dart';
 import '../components/atoms/social_login_section.dart';
-import '../components/atoms/gradient_background.dart';
 import 'login_screen_refactored.dart';
 
 class LoginScreenResponsive extends StatelessWidget {

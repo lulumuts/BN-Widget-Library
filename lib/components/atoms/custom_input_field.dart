@@ -8,6 +8,10 @@ class CustomInputField extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final bool underline;
+  final bool outline;
+  final Widget? prefixIcon;
+  final TextStyle? textStyle;
 
   const CustomInputField({
     super.key,
@@ -17,6 +21,10 @@ class CustomInputField extends StatelessWidget {
     this.controller,
     this.validator,
     this.keyboardType,
+    this.underline = false,
+    this.outline = false,
+    this.prefixIcon,
+    this.textStyle,
   });
 
   @override
@@ -39,12 +47,14 @@ class CustomInputField extends StatelessWidget {
         // Input field - now full width
         Container(
           width: double.infinity,
-          decoration: ShapeDecoration(
-            color: const Color(0xFFF8F4FF),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
+          decoration: (outline || underline)
+              ? null
+              : ShapeDecoration(
+                  color: const Color(0xFFF8F4FF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
           child: TextFormField(
             controller: controller,
             validator: validator,
@@ -53,19 +63,68 @@ class CustomInputField extends StatelessWidget {
             decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              border: InputBorder.none,
+              border: outline
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF3A0F88),
+                        width: 2,
+                      ),
+                    )
+                  : underline
+                      ? const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF3A0F88),
+                            width: 2,
+                          ),
+                        )
+                      : InputBorder.none,
+              enabledBorder: outline
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF3A0F88),
+                        width: 2,
+                      ),
+                    )
+                  : underline
+                      ? const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF3A0F88),
+                            width: 2,
+                          ),
+                        )
+                      : InputBorder.none,
+              focusedBorder: outline
+                  ? OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF7F38FF),
+                        width: 2,
+                      ),
+                    )
+                  : underline
+                      ? const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFF7F38FF),
+                            width: 2,
+                          ),
+                        )
+                      : InputBorder.none,
               hintText: hintText,
               hintStyle: GoogleFonts.leagueSpartan(
                 color: const Color(0xBF481F94),
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
               ),
+              prefixIcon: prefixIcon,
             ),
-            style: GoogleFonts.leagueSpartan(
-              color: const Color(0xFF332749),
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
+            style: textStyle ??
+                GoogleFonts.leagueSpartan(
+                  color: const Color(0xFF332749),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
           ),
         ),
       ],

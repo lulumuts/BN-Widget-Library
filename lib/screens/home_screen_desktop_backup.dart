@@ -27,8 +27,6 @@ class _ServiceButton extends StatelessWidget {
 
   const _ServiceButton({
     required this.text,
-    this.imageUrl,
-    this.iconData,
     required this.isPrimary,
   });
 
@@ -561,8 +559,6 @@ class _DesktopServiceButton extends StatelessWidget {
 
   const _DesktopServiceButton({
     required this.text,
-    this.imageUrl,
-    this.iconData,
     required this.isPrimary,
   });
 

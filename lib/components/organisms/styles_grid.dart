@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../molecules/style_item.dart';
-import '../atoms/atomic_text.dart';
 import '../models/service_data.dart';
 
 class StylesGrid extends StatelessWidget {

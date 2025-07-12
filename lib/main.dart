@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 import 'components/atoms/custom_input_field.dart';
 import 'components/atoms/social_login_section.dart';
 import 'components/atoms/gradient_background.dart';
-import 'components/atoms/custom_button.dart';
 import 'components/atoms/atomic_button.dart';
 import 'components/atoms/atomic_text.dart';
 import 'components/atoms/service_button.dart';
 import 'components/atoms/bottom_nav_icon_button.dart';
 import 'components/molecules/style_item.dart';
-import 'components/molecules/salon_item.dart';
 import 'components/molecules/services_section.dart';
 import 'components/molecules/salon_card.dart';
 import 'components/organisms/styles_grid.dart';
-import 'components/organisms/styles_section.dart';
 import 'components/templates/home_template.dart';
 import 'components/templates/salons_template.dart';
 import 'components/models/service_data.dart';
@@ -31,10 +27,12 @@ import 'screens/onboarding_screen_mobile.dart';
 import 'mobile_preview.dart';
 
 import 'components/organisms/home_cards_template.dart';
-import 'screens/salons_screen.dart';
 import 'screens/mobile_salon_screen.dart';
 import 'components/atoms/rating_stars.dart';
 import 'components/organisms/right_container.dart';
+import 'components/organisms/onboarding_questions.dart';
+import 'components/organisms/location.dart' as location;
+import 'screens/location_screen_desktop.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -1026,6 +1024,15 @@ class WidgetbookApp extends StatelessWidget {
                     ),
                   ],
                 ),
+                WidgetbookComponent(
+                  name: 'LocationScreen',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default',
+                      builder: (context) => location.LocationScreen(),
+                    ),
+                  ],
+                ),
               ],
             ),
             WidgetbookFolder(
@@ -1357,11 +1364,89 @@ class WidgetbookApp extends StatelessWidget {
                   useCases: [
                     WidgetbookUseCase(
                       name: 'Desktop Onboarding',
-                      builder: (context) => const OnboardingScreenDesktop(),
+                      builder: (context) {
+                        final view = context.knobs.list(
+                          label: 'Onboarding View',
+                          options: [
+                            'View 1',
+                            'View 2',
+                            'View 3',
+                          ],
+                          initialOption: 'View 1',
+                        );
+                        OnboardingView selectedView;
+                        switch (view) {
+                          case 'View 2':
+                            selectedView = OnboardingView.view2;
+                            break;
+                          case 'View 3':
+                            selectedView = OnboardingView.view3;
+                            break;
+                          case 'View 1':
+                          default:
+                            selectedView = OnboardingView.view1;
+                        }
+                        return OnboardingScreenDesktop(view: selectedView);
+                      },
                     ),
                     WidgetbookUseCase(
                       name: 'Mobile Onboarding',
-                      builder: (context) => const OnboardingScreenMobile(),
+                      builder: (context) {
+                        final view = context.knobs.list(
+                          label: 'Onboarding View',
+                          options: [
+                            'View 1',
+                            'View 2',
+                            'View 3',
+                          ],
+                          initialOption: 'View 1',
+                        );
+                        OnboardingView selectedView;
+                        switch (view) {
+                          case 'View 2':
+                            selectedView = OnboardingView.view2;
+                            break;
+                          case 'View 3':
+                            selectedView = OnboardingView.view3;
+                            break;
+                          case 'View 1':
+                          default:
+                            selectedView = OnboardingView.view1;
+                        }
+                        return OnboardingScreenMobile(view: selectedView);
+                      },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'LocationScreenDesktop',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Desktop Location',
+                      builder: (context) {
+                        final view = context.knobs.list(
+                          label: 'Location View',
+                          options: [
+                            'View 1',
+                            'View 2',
+                            'View 3',
+                          ],
+                          initialOption: 'View 1',
+                        );
+                        location.OnboardingView selectedView;
+                        switch (view) {
+                          case 'View 2':
+                            selectedView = location.OnboardingView.view2;
+                            break;
+                          case 'View 3':
+                            selectedView = location.OnboardingView.view3;
+                            break;
+                          case 'View 1':
+                          default:
+                            selectedView = location.OnboardingView.view1;
+                        }
+                        return LocationScreenDesktop(view: selectedView);
+                      },
                     ),
                   ],
                 ),
