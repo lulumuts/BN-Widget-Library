@@ -76,8 +76,8 @@ class OrderCard extends StatelessWidget {
     final descFontSize = isDesktop ? 13.0 : 14.0;
 
     final padding = isDesktop
-        ? const EdgeInsets.symmetric(horizontal: 16, vertical: 4)
-        : const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
+        ? const EdgeInsets.only(left: 24, right: 16, top: 4, bottom: 4)
+        : const EdgeInsets.only(left: 24, right: 16, top: 8, bottom: 8);
 
     return Container(
       width: 332.82,

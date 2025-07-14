@@ -36,7 +36,8 @@ import 'screens/location_screen_desktop.dart';
 import 'components/organisms/braider_status_list_view.dart';
 import 'components/atoms/order_card.dart';
 import 'components/organisms/order_status_list_view.dart';
-import 'screens/orders_screen_desktop.dart';
+import 'screens/orders_screen/desktop.dart';
+import 'screens/orders_screen/mobile.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -1510,11 +1511,15 @@ class WidgetbookApp extends StatelessWidget {
                   ],
                 ),
                 WidgetbookComponent(
-                  name: 'OrdersScreenDesktop',
+                  name: 'OrdersScreen',
                   useCases: [
                     WidgetbookUseCase(
-                      name: 'Default',
+                      name: 'Desktop',
                       builder: (context) => const OrdersScreenDesktop(),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Mobile',
+                      builder: (context) => const OrdersScreenMobile(),
                     ),
                   ],
                 ),

@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../components/molecules/salon_item.dart';
-import '../components/models/service_data.dart';
-import '../components/molecules/services_section.dart';
+import '../../components/molecules/salon_item.dart';
+import '../../components/models/service_data.dart';
+import '../../components/molecules/services_section.dart';
 import '../../screens/mobile_braider_screen.dart';
 import 'dart:async';
-import '../components/molecules/salon_card.dart';
-import '../components/templates/home_template.dart';
-import '../components/atoms/rating_stars.dart';
-import '../components/organisms/styles_grid.dart';
-import '../components/organisms/right_container.dart';
-import '../components/atoms/service_button.dart';
-import '../components/molecules/style_item.dart';
-import '../components/atoms/bottom_nav_icon_button.dart';
-import '../components/organisms/order_status_list_view.dart';
-import '../components/organisms/navbar.dart';
+import '../../components/molecules/salon_card.dart';
+import '../../components/templates/home_template.dart';
+import '../../components/atoms/rating_stars.dart';
+import '../../components/organisms/styles_grid.dart';
+import '../../components/organisms/right_container.dart';
+import '../../components/atoms/service_button.dart';
+import '../../components/molecules/style_item.dart';
+import '../../components/atoms/bottom_nav_icon_button.dart';
+import '../../components/organisms/order_status_list_view.dart';
+import '../../components/organisms/navbar.dart';
+import 'mobile.dart';
 
-class OrdersTemplate extends StatefulWidget {
+class OrdersScreenDesktop extends StatefulWidget {
   final int? selectedLeftOption;
   final String? rightContentOption;
-  const OrdersTemplate(
+  const OrdersScreenDesktop(
       {super.key, this.selectedLeftOption, this.rightContentOption});
 
   @override
-  State<OrdersTemplate> createState() => _OrdersTemplateState();
+  State<OrdersScreenDesktop> createState() => _OrdersScreenDesktopState();
 }
 
-class _OrdersTemplateState extends State<OrdersTemplate> {
+class _OrdersScreenDesktopState extends State<OrdersScreenDesktop> {
   int selectedLeftOptionInternal = 0;
 
   // Internal state for right content, used if widget.rightContentOption is null
@@ -193,43 +194,42 @@ class _OrdersTemplateState extends State<OrdersTemplate> {
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Use screen width to determine if we should show mobile or desktop layout
-          final screenWidth = MediaQuery.of(context).size.width;
-          final isMobile =
-              screenWidth < 800; // Mobile breakpoint - match braider screen
+          // Use OrdersScreenMobile for screens narrower than 800px
+          if (constraints.maxWidth < 800) {
+            return const OrdersScreenMobile();
+          }
+          return _buildDesktopLayout(context, constraints);
+        },
+      ),
+    );
+  }
 
-          if (isMobile) {
-            return MobileOrdersPreview();
-          } else {
-            return Container(
-              color: Colors.white,
-              width: double.infinity,
-              height: double.infinity,
-              child: Column(
+  Widget _buildDesktopLayout(BuildContext context, BoxConstraints constraints) {
+    return Container(
+      color: Colors.white,
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        children: [
+          const Navbar(activeTab: 'Orders'),
+          Expanded(
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Navbar(activeTab: 'Orders'),
-                  Expanded(
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildLeftPromoSection(),
-                          _buildResponsiveSpacing(),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              _buildRightContentSection(),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  _buildLeftPromoSection(),
+                  _buildResponsiveSpacing(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildRightContentSection(),
+                    ],
                   ),
                 ],
               ),
-            );
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -620,139 +620,6 @@ class _HoverFillButtonState extends State<_HoverFillButton> {
             fontWeight: FontWeight.w600,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class OrdersScreenDesktop extends StatelessWidget {
-  const OrdersScreenDesktop({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          // Use mobile view for screens narrower than 800px
-          if (constraints.maxWidth < 800) {
-            print(
-                'DEBUG: Using MobileOrdersPreview, width: ${constraints.maxWidth}');
-            return const MobileOrdersPreview();
-          }
-          print('DEBUG: Using OrdersTemplate, width: ${constraints.maxWidth}');
-          return const OrdersTemplate();
-        },
-      ),
-    );
-  }
-}
-
-class MobileOrdersPreview extends StatefulWidget {
-  const MobileOrdersPreview({super.key});
-
-  @override
-  State<MobileOrdersPreview> createState() => _MobileOrdersPreviewState();
-}
-
-class _MobileOrdersPreviewState extends State<MobileOrdersPreview> {
-  int selectedLeftOption = 0;
-  String selectedRightContent = 'Orders List';
-
-  final List<Map<String, String>> leftOptions = [
-    {
-      'image': 'assets/images/BraidsBackground.png',
-      'title': 'Braids',
-    },
-    {
-      'image': 'assets/images/LinesBackground.png',
-      'title': 'Lines',
-    },
-    {
-      'image': 'assets/images/TwistsBackground.png',
-      'title': 'Twists',
-    },
-    {
-      'image': 'assets/images/LocsBackground.png',
-      'title': 'Locs',
-    },
-    {
-      'image': 'assets/images/WeavesBackground.png',
-      'title': 'Weaves',
-    },
-    {
-      'image': 'assets/images/NaturalBackground.png',
-      'title': 'Natural',
-    },
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Mobile content - simplified for orders
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
-                ),
-                child: const Center(
-                  child: OrderStatusListView(),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildBottomNavBar(),
-    );
-  }
-
-  Widget _buildBottomNavBar() {
-    return Container(
-      height: 80,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          top: BorderSide(
-            color: const Color(0xFFEEE4FF),
-            width: 1,
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          HomeIconButton(
-            isActive: false,
-            onTap: () {},
-          ),
-          SalonsIconButton(
-            isActive: false,
-            onTap: () {},
-          ),
-          ChatIconButton(
-            isActive: false,
-            onTap: () {},
-          ),
-          OrdersIconButton(
-            isActive: true,
-            onTap: () {},
-          ),
-          ProfileIconButton(
-            isActive: false,
-            onTap: () {},
-          ),
-        ],
       ),
     );
   }

@@ -55,7 +55,7 @@ class OrderStatusListView extends StatelessWidget {
         final cardWidth = containerWidth - 60; // 30px padding on each side
         final cardHeight = isDesktop ? 84.5 : 106.0;
         final cardSpacing = 12.0;
-        final leftPadding = isDesktop ? 10.0 : 16.0;
+        final leftPadding = isDesktop ? 13.0 : 24.0;
 
         final orderListWidth = isDesktop ? 800.0 : containerWidth;
 
