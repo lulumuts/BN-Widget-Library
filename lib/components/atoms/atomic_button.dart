@@ -48,6 +48,7 @@ class AtomicButton extends StatelessWidget {
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (icon != null && iconPosition == AtomicIconPosition.left)
               Icon(icon, size: 18, color: color),

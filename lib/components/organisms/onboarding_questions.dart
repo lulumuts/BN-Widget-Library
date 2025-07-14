@@ -112,89 +112,146 @@ class OnboardingQuestions extends StatelessWidget {
                 case OnboardingView.view2:
                   return CustomDropdown();
                 case OnboardingView.view3:
-                  return Column(
-                    children: [
-                      // Top section with background and placeholder for text
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 32.0, left: 32.0, right: 32.0),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24.0, vertical: 16.0),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF5F0FF),
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '🙌🏾',
-                                style: TextStyle(fontSize: 48),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 16),
-                              Text(
-                                'Yay, you’re all done!',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF332749),
-                                  fontFamily: 'League Spartan',
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        // Top section with background and placeholder for text
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 16.0, left: 32.0, right: 32.0),
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24.0, vertical: 16.0),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF5F0FF),
+                              borderRadius: BorderRadius.circular(32),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '🙌🏾',
+                                  style: TextStyle(fontSize: 40),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'So what’s next?',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF332749),
-                                  fontFamily: 'League Spartan',
+                                SizedBox(height: 8),
+                                Text(
+                                  'Yay, you’re all done!',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF332749),
+                                    fontFamily: 'League Spartan',
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 8),
-                              Center(
-                                child: SizedBox(
-                                  width: 280,
-                                  child: Text(
-                                    'Stay on top of your hair journey with insights & progress tracking.',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0xFF332749),
-                                      fontFamily: 'League Spartan',
+                                SizedBox(height: 4),
+                                Text(
+                                  'So what’s next?',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF332749),
+                                    fontFamily: 'League Spartan',
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 8),
+                                Center(
+                                  child: SizedBox(
+                                    width: 280,
+                                    child: Text(
+                                      'Stay on top of your hair journey with insights & progress tracking.',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0xFF332749),
+                                        fontFamily: 'League Spartan',
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
+                                SizedBox(height: 20),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: _CustomGoToHomeButton(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Text between top and bottom sections
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24.0),
+                          child: Text(
+                            'Additionally, here are some suggested salons\nbased on your answers',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF332749),
+                              fontFamily: 'League Spartan',
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        // Bottom section with reduced height
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0, vertical: 8.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height:
+                                    170.5, // Reduced height for 2 rows of 3, all cards visible
+                                child: GridView.count(
+                                  crossAxisCount: 3,
+                                  shrinkWrap: true,
+                                  mainAxisSpacing: 12,
+                                  crossAxisSpacing: 12,
+                                  // Removed NeverScrollableScrollPhysics() to allow scrolling
+                                  childAspectRatio:
+                                      1.1, // Decrease this value for even taller cards (width / height)
+                                  children: List.generate(
+                                      3, (index) => _SalonCardPlaceholder()),
+                                ),
                               ),
-                              SizedBox(height: 20),
+                              const SizedBox(height: 10),
                               SizedBox(
                                 width: double.infinity,
-                                child: OutlinedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                        color: Color(0xFF332749), width: 2),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(24),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty
+                                        .resolveWith<Color>(
+                                      (states) {
+                                        if (states
+                                            .contains(MaterialState.hovered)) {
+                                          return const Color(0xFF7F38FF);
+                                        }
+                                        return const Color(0xFF332749);
+                                      },
                                     ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16),
+                                    foregroundColor:
+                                        MaterialStateProperty.all(Colors.white),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                    ),
+                                    padding: MaterialStateProperty.all(
+                                      const EdgeInsets.symmetric(vertical: 16),
+                                    ),
                                   ),
                                   child: Text(
-                                    'Go to Home',
+                                    'Browse More Salons',
                                     style: TextStyle(
                                       fontFamily: 'League Spartan',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15,
-                                      color: Color(
-                                          0xFF332749), // This sets the text color
                                     ),
                                   ),
                                 ),
@@ -202,71 +259,8 @@ class OnboardingQuestions extends StatelessWidget {
                             ],
                           ),
                         ),
-                      ),
-                      // Text between top and bottom sections
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Text(
-                          'Additionally, here are some suggested salons\nbased on your answers',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Color(0xFF332749),
-                            fontFamily: 'League Spartan',
-                            fontWeight: FontWeight.w600,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      // Bottom section with reduced height
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0, vertical: 8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              height:
-                                  283.5, // Reduced height for 2 rows of 3, all cards visible
-                              child: GridView.count(
-                                crossAxisCount: 3,
-                                shrinkWrap: true,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 12,
-                                physics: NeverScrollableScrollPhysics(),
-                                childAspectRatio:
-                                    1.1, // Decrease this value for even taller cards (width / height)
-                                children: List.generate(
-                                    6, (index) => _SalonCardPlaceholder()),
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF332749),
-                                  foregroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                ),
-                                child: Text(
-                                  'Browse More Salons',
-                                  style: TextStyle(
-                                    fontFamily: 'League Spartan',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
               }
             }(),
@@ -695,6 +689,80 @@ class _SalonCardPlaceholder extends StatelessWidget {
             color: Color(0xFF7F38FF),
             fontFamily: 'League Spartan',
             fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _AnimatedButtonText extends StatefulWidget {
+  @override
+  State<_AnimatedButtonText> createState() => _AnimatedButtonTextState();
+}
+
+class _AnimatedButtonTextState extends State<_AnimatedButtonText> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final isHovered = _hovering;
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      child: AnimatedDefaultTextStyle(
+        duration: const Duration(milliseconds: 200),
+        style: TextStyle(
+          fontFamily: 'League Spartan',
+          fontWeight: FontWeight.w600,
+          fontSize: 15,
+          color: isHovered ? Colors.white : const Color(0xFF332749),
+        ),
+        child: const Text('Go to Home'),
+      ),
+    );
+  }
+}
+
+class _CustomGoToHomeButton extends StatefulWidget {
+  @override
+  State<_CustomGoToHomeButton> createState() => _CustomGoToHomeButtonState();
+}
+
+class _CustomGoToHomeButtonState extends State<_CustomGoToHomeButton> {
+  bool _hovering = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final isHovered = _hovering;
+    final backgroundColor =
+        isHovered ? const Color(0xFF332749) : Colors.transparent;
+    final textColor = isHovered ? Colors.white : const Color(0xFF332749);
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hovering = true),
+      onExit: (_) => setState(() => _hovering = false),
+      child: GestureDetector(
+        onTap: () {},
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.ease,
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            border: Border.all(color: const Color(0xFF332749), width: 2),
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Center(
+            child: AnimatedDefaultTextStyle(
+              duration: const Duration(milliseconds: 200),
+              style: TextStyle(
+                fontFamily: 'League Spartan',
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+                color: textColor,
+              ),
+              child: const Text('Go to Home'),
+            ),
           ),
         ),
       ),

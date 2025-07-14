@@ -33,6 +33,10 @@ import 'components/organisms/right_container.dart';
 import 'components/organisms/onboarding_questions.dart';
 import 'components/organisms/location.dart' as location;
 import 'screens/location_screen_desktop.dart';
+import 'components/organisms/braider_status_list_view.dart';
+import 'components/atoms/order_card.dart';
+import 'components/organisms/order_status_list_view.dart';
+import 'screens/orders_screen_desktop.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -506,6 +510,41 @@ class WidgetbookApp extends StatelessWidget {
                           ),
                         );
                       },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'OrderCard',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Completed',
+                      builder: (context) => Center(
+                        child: OrderCard(
+                          title: 'Completed Order',
+                          description: 'This order has been completed.',
+                          status: OrderStatus.completed,
+                        ),
+                      ),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Ongoing',
+                      builder: (context) => Center(
+                        child: OrderCard(
+                          title: 'Ongoing Order',
+                          description: 'This order is in progress.',
+                          status: OrderStatus.ongoing,
+                        ),
+                      ),
+                    ),
+                    WidgetbookUseCase(
+                      name: 'Pending',
+                      builder: (context) => Center(
+                        child: OrderCard(
+                          title: 'Pending Order',
+                          description: 'This order is pending.',
+                          status: OrderStatus.pending,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -1033,6 +1072,26 @@ class WidgetbookApp extends StatelessWidget {
                     ),
                   ],
                 ),
+                WidgetbookComponent(
+                  name: 'BraiderStatusListView',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default',
+                      builder: (context) =>
+                          const Center(child: BraiderStatusListView()),
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'OrderStatusListView',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default',
+                      builder: (context) =>
+                          const Center(child: OrderStatusListView()),
+                    ),
+                  ],
+                ),
               ],
             ),
             WidgetbookFolder(
@@ -1447,6 +1506,15 @@ class WidgetbookApp extends StatelessWidget {
                         }
                         return LocationScreenDesktop(view: selectedView);
                       },
+                    ),
+                  ],
+                ),
+                WidgetbookComponent(
+                  name: 'OrdersScreenDesktop',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default',
+                      builder: (context) => const OrdersScreenDesktop(),
                     ),
                   ],
                 ),

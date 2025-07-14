@@ -14,6 +14,7 @@ import '../components/organisms/right_container.dart';
 import '../components/atoms/service_button.dart';
 import '../components/molecules/style_item.dart';
 import '../components/atoms/bottom_nav_icon_button.dart';
+import '../components/organisms/navbar.dart';
 
 class BraiderTemplate extends StatefulWidget {
   final int? selectedLeftOption;
@@ -204,7 +205,7 @@ class _BraiderTemplateState extends State<BraiderTemplate> {
               height: double.infinity,
               child: Column(
                 children: [
-                  const SharedNavigationBar(),
+                  const Navbar(activeTab: 'Salons'),
                   Expanded(
                     child: Center(
                       child: Row(
@@ -372,22 +373,22 @@ class _BraiderTemplateState extends State<BraiderTemplate> {
                             child: Center(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Doris\' Salon - Stall 222',
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.left,
                                     style: GoogleFonts.leagueSpartan(
                                       color: Colors.white,
-                                      fontSize: 32,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.w600,
                                       height: 0.56,
                                     ),
                                   ),
-                                  const SizedBox(height: 16),
+                                  const SizedBox(height: 8),
                                   Text(
                                     '5 km away | 500 KES transport fee | 20 minutes',
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.left,
                                     style: GoogleFonts.leagueSpartan(
                                       color: Colors.white,
                                       fontSize: 16,

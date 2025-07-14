@@ -5,6 +5,9 @@ import '../models/service_data.dart';
 import '../templates/home_template.dart';
 import '../atoms/rating_stars.dart';
 
+// Export the organism for use elsewhere
+export 'braider_status_list_view.dart';
+
 class RightContainer extends StatelessWidget {
   final List<StyleData> styles;
   final List<SalonData> salons;
