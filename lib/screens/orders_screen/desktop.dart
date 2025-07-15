@@ -211,7 +211,10 @@ class _OrdersScreenDesktopState extends State<OrdersScreenDesktop> {
       height: double.infinity,
       child: Column(
         children: [
-          const Navbar(activeTab: 'Orders'),
+          SizedBox(
+            width: double.infinity,
+            child: const Navbar(activeTab: 'Orders'),
+          ),
           Expanded(
             child: Center(
               child: Row(
