@@ -38,6 +38,7 @@ import 'components/atoms/order_card.dart';
 import 'components/organisms/order_status_list_view.dart';
 import 'screens/orders_screen/desktop.dart';
 import 'screens/orders_screen/mobile.dart';
+import 'components/organisms/navbar.dart';
 
 void main() {
   runApp(const WidgetbookApp());
@@ -834,6 +835,15 @@ class WidgetbookApp extends StatelessWidget {
             WidgetbookFolder(
               name: 'Organisms',
               children: [
+                WidgetbookComponent(
+                  name: 'Navbar',
+                  useCases: [
+                    WidgetbookUseCase(
+                      name: 'Default',
+                      builder: (context) => const Navbar(activeTab: 'User'),
+                    ),
+                  ],
+                ),
                 WidgetbookComponent(
                   name: 'StylesGrid',
                   useCases: [
