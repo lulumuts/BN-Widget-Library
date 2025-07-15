@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../molecules/services_section.dart';
 import '../../screens/mobile_salon_screen.dart';
 import '../molecules/salon_card.dart';
+import '../organisms/navbar.dart';
 
 class SalonsTemplate extends StatefulWidget {
   final int? selectedLeftOption;
@@ -427,64 +428,7 @@ class _SalonsTemplateState extends State<SalonsTemplate> {
 
   // Builds the top navigation bar
   Widget _buildTopNavigationBar() {
-    return Container(
-      height: 72,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            width: 3,
-            color: Color(0x077F38FF),
-          ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          children: [
-            // Logo placeholder
-            SizedBox(
-              width: 59.80,
-              height: 65.17,
-              // color: const Color(0xFF7F38FF),
-              child: Center(
-                child: SvgPicture.asset(
-                  'assets/images/BN_LOGO.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            const Spacer(),
-            // Navigation items
-            const _NavItem(text: "Home", isSelected: true),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Salons"),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Chat"),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Orders"),
-            const SizedBox(width: 40),
-            const _NavItem(text: "Lulu"),
-            const SizedBox(width: 20),
-            // Profile avatar
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  width: 2,
-                ),
-              ),
-            ),
-            const SizedBox(width: 20),
-            // Close button
-            _CloseButton(),
-          ],
-        ),
-      ),
-    );
+    return const Navbar(activeTab: 'Salons');
   }
 
   Widget _buildLeftPromoSection() {

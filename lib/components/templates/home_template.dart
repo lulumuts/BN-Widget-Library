@@ -68,7 +68,7 @@ class _HomeTemplateState extends State<HomeTemplate> {
 
   // Builds the top navigation bar
   Widget _buildTopNavigationBar() {
-    return const Navbar(activeTab: 'Orders');
+    return const Navbar(activeTab: 'Home');
   }
 
   // Builds the left promotional section
