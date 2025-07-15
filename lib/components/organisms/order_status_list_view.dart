@@ -53,7 +53,7 @@ class OrderStatusListView extends StatelessWidget {
         final screenWidth = MediaQuery.of(context).size.width;
         final isDesktop = screenWidth >= 800;
         final cardWidth = containerWidth - 60; // 30px padding on each side
-        final cardHeight = isDesktop ? 84.5 : 106.0;
+        final cardHeight = isDesktop ? 90.5 : 124.0;
         final cardSpacing = 12.0;
         final leftPadding = isDesktop ? 13.0 : 24.0;
 
@@ -106,7 +106,6 @@ class OrderStatusListView extends StatelessWidget {
                   width: double.infinity,
                   child: AtomicButton(
                     text: 'Chat with Braider',
-                    isPrimary: false,
                     onPressed: () {},
                   ),
                 ),

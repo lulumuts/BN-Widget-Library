@@ -3,10 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 enum AtomicIconPosition { left, right }
 
-class AtomicButton extends StatelessWidget {
+class AtomicButton extends StatefulWidget {
   final String text;
   final VoidCallback? onPressed;
-  final bool isPrimary;
   final bool isSmall;
   final IconData? icon;
   final AtomicIconPosition iconPosition;
@@ -16,7 +15,6 @@ class AtomicButton extends StatelessWidget {
     super.key,
     required this.text,
     this.onPressed,
-    this.isPrimary = true,
     this.isSmall = false,
     this.icon,
     this.iconPosition = AtomicIconPosition.left,
@@ -24,49 +22,62 @@ class AtomicButton extends StatelessWidget {
   });
 
   @override
+  State<AtomicButton> createState() => _AtomicButtonState();
+}
+
+class _AtomicButtonState extends State<AtomicButton> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    final color = isPrimary ? Colors.white : const Color(0xFF332749);
-    final bgColor = isPrimary ? const Color(0xFF332749) : Colors.transparent;
-    final borderColor =
-        isPrimary ? Colors.transparent : const Color(0xFF332749);
+    final height = widget.isSmall ? 36.0 : 45.0;
+    final fontSize = widget.isSmall ? 14.0 : 16.0;
+    final backgroundColor =
+        _isHovered ? const Color(0xFF332749) : Colors.transparent;
+    final textColor = _isHovered ? Colors.white : const Color(0xFF332749);
 
-    final height = isSmall ? 36.0 : 45.0;
-    final fontSize = isSmall ? 14.0 : 16.0;
-
-    return GestureDetector(
-      onTap: onPressed,
-      child: Container(
-        height: height,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: active ? const Color(0xFF7F38FF) : bgColor,
-          borderRadius: BorderRadius.circular(24),
-          border: Border.all(
-            color: active ? const Color(0xFF7F38FF) : borderColor,
-            width: 2,
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (icon != null && iconPosition == AtomicIconPosition.left)
-              Icon(icon, size: 18, color: color),
-            if (icon != null && iconPosition == AtomicIconPosition.left)
-              const SizedBox(width: 8),
-            Text(
-              text,
-              style: GoogleFonts.leagueSpartan(
-                color: color,
-                fontSize: fontSize,
-                fontWeight: FontWeight.w600,
-              ),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: Container(
+          height: height,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(
+              color: const Color(0xFF332749),
+              width: 2,
             ),
-            if (icon != null && iconPosition == AtomicIconPosition.right)
-              const SizedBox(width: 8),
-            if (icon != null && iconPosition == AtomicIconPosition.right)
-              Icon(icon, size: 18, color: color),
-          ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (widget.icon != null &&
+                  widget.iconPosition == AtomicIconPosition.left)
+                Icon(widget.icon, size: 18, color: textColor),
+              if (widget.icon != null &&
+                  widget.iconPosition == AtomicIconPosition.left)
+                const SizedBox(width: 8),
+              Text(
+                widget.text,
+                style: GoogleFonts.leagueSpartan(
+                  color: textColor,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              if (widget.icon != null &&
+                  widget.iconPosition == AtomicIconPosition.right)
+                const SizedBox(width: 8),
+              if (widget.icon != null &&
+                  widget.iconPosition == AtomicIconPosition.right)
+                Icon(widget.icon, size: 18, color: textColor),
+            ],
+          ),
         ),
       ),
     );

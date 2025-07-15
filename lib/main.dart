@@ -130,7 +130,6 @@ class WidgetbookApp extends StatelessWidget {
                       builder: (context) => Center(
                         child: AtomicButton(
                           text: 'Secondary Button',
-                          isPrimary: false,
                           onPressed: () {},
                         ),
                       ),
@@ -150,8 +149,6 @@ class WidgetbookApp extends StatelessWidget {
                       builder: (context) => Center(
                         child: AtomicButton(
                           text: 'Small Secondary',
-                          isPrimary: false,
-                          isSmall: true,
                           onPressed: () {},
                         ),
                       ),

@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Navbar extends StatelessWidget {
+class Navbar extends StatefulWidget {
   final String activeTab;
-  final VoidCallback? onLuluMenuTap;
+  const Navbar({super.key, this.activeTab = 'Orders'});
 
-  const Navbar({
-    super.key,
-    this.activeTab = 'Orders',
-    this.onLuluMenuTap,
-  });
+  @override
+  State<Navbar> createState() => _NavbarState();
+}
 
+class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,22 +40,46 @@ class Navbar extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            NavItem(text: "Home", isSelected: activeTab == "Home"),
+            NavItem(text: "Home", isSelected: widget.activeTab == "Home"),
             const SizedBox(width: 40),
-            NavItem(text: "Salons", isSelected: activeTab == "Salons"),
+            NavItem(text: "Salons", isSelected: widget.activeTab == "Salons"),
             const SizedBox(width: 40),
-            NavItem(text: "Chat", isSelected: activeTab == "Chat"),
+            NavItem(text: "Chat", isSelected: widget.activeTab == "Chat"),
             const SizedBox(width: 40),
-            NavItem(text: "Orders", isSelected: activeTab == "Orders"),
+            NavItem(text: "Orders", isSelected: widget.activeTab == "Orders"),
             const SizedBox(width: 40),
             // Lulu + chevron as dropdown
-            GestureDetector(
-              onTap: onLuluMenuTap,
+            PopupMenuButton<String>(
+              offset: const Offset(0, 40),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              onSelected: (value) {
+                // Handle menu selection here
+                if (value == 'Logout') {
+                  // Example: Navigator.of(context).pushReplacementNamed('/login');
+                }
+              },
+              itemBuilder: (context) => [
+                const PopupMenuItem(
+                  value: 'Profile',
+                  child: Text('Profile'),
+                ),
+                const PopupMenuItem(
+                  value: 'Settings',
+                  child: Text('Settings'),
+                ),
+                const PopupMenuItem(
+                  value: 'Logout',
+                  child: Text('Logout'),
+                ),
+              ],
               child: Row(
                 children: [
-                  NavItem(text: "Lulu", isSelected: activeTab == "Lulu"),
+                  NavItem(text: "Lulu", isSelected: widget.activeTab == "Lulu"),
                   const SizedBox(width: 4),
-                  const CloseButton(isDropdown: true),
+                  const Icon(Icons.keyboard_arrow_down,
+                      color: Color(0xFF7F38FF)),
                 ],
               ),
             ),
@@ -96,24 +119,6 @@ class NavItem extends StatelessWidget {
         fontSize: 16,
         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
         letterSpacing: 0.80,
-      ),
-    );
-  }
-}
-
-class CloseButton extends StatelessWidget {
-  final bool isDropdown;
-  const CloseButton({super.key, this.isDropdown = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      'assets/images/chevron-down.svg',
-      width: 24,
-      height: 24,
-      colorFilter: const ColorFilter.mode(
-        Color(0xFF7F38FF),
-        BlendMode.srcIn,
       ),
     );
   }
